@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "vitest"
+    "vitest": "vitest run",
+    "vitest:watch": "vitest"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
