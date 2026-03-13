@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import "./styles/global.css";
 import "@mantine/core/styles.css";
 
 const App = () => (
