@@ -17,6 +17,8 @@
     "**/*.{js,json,css,md}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@mantine/core": "^8.3.16",
+    "@mantine/hooks": "^8.3.16",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
