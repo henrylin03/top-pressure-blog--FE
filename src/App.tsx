@@ -3,9 +3,9 @@ import "./styles/global.css";
 import "@mantine/core/styles.css";
 
 const App = () => (
-  <MantineProvider>
-    <h1>hello world</h1>
-  </MantineProvider>
+	<MantineProvider>
+		<h1>hello world</h1>
+	</MantineProvider>
 );
 
 export default App;
