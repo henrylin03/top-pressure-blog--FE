@@ -17,6 +17,8 @@
     "**/*.{js,json,css,md}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@mantine/core": "^8.3.16",
+    "@mantine/hooks": "^8.3.16",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -39,6 +41,9 @@
     "husky": "^9.1.7",
     "jsdom": "^28.1.0",
     "lint-staged": "^16.3.2",
+    "postcss": "^8.5.8",
+    "postcss-preset-mantine": "^1.18.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "3.8.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
