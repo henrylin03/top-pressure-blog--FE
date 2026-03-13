@@ -1,6 +1,13 @@
 import "@testing-library/jest-dom/vitest";
+import { expect, vi, afterEach } from "vitest";
+import * as matchers from "@testing-library/jest-dom/matchers";
+import { cleanup } from "@testing-library/react";
 
-import { vi } from "vitest";
+expect.extend(matchers);
+
+afterEach(() => {
+  cleanup();
+});
 
 const { getComputedStyle } = window;
 window.getComputedStyle = (elt) => getComputedStyle(elt);
