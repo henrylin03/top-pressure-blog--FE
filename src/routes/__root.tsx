@@ -1,18 +1,17 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import Footer from "@components/Footer/Footer";
+import Header from "@components/Header/Header";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { SOCIALS_LINKS } from "../data/socialsLinks";
 
 const RootLayout = () => (
 	<>
-		<div className="p-2 flex gap-2">
-			<Link to="/" className="[&.active]:font-bold">
-				Home
-			</Link>{" "}
-			<Link to="/about" className="[&.active]:font-bold">
-				About
-			</Link>
-		</div>
-		<hr />
-		<Outlet />
+		<Header />
+		<main>
+			<Outlet />
+		</main>
+		<Footer links={SOCIALS_LINKS} />
+
 		<TanStackRouterDevtools />
 	</>
 );
