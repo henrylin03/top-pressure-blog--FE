@@ -1,12 +1,28 @@
+import { MantineProvider } from "@mantine/core";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import { routeTree } from "./routeTree.gen.ts";
+import "./styles/global.css";
+import "@mantine/core/styles.css";
 
-const root = document.getElementById("root");
-if (!root) throw new Error("#root element not found");
+const router = createRouter({ routeTree });
+declare module "@tanstack/react-router" {
+	interface Register {
+		router: typeof router;
+	}
+}
 
-createRoot(root).render(
-	<StrictMode>
-		<App />
-	</StrictMode>,
-);
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("#root element not found");
+
+if (!rootElement.innerHTML) {
+	const root = createRoot(rootElement);
+	root.render(
+		<StrictMode>
+			<MantineProvider>
+				<RouterProvider router={router} />
+			</MantineProvider>
+		</StrictMode>,
+	);
+}

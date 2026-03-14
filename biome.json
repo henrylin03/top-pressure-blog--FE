@@ -6,6 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
+		"includes": ["**", "!!*/dist", "!!*/routeTree.gen.ts"],
 		"ignoreUnknown": false
 	},
 	"formatter": {
