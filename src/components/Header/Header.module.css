@@ -1,0 +1,14 @@
+.header {
+  box-shadow: var(--mantine-shadow-xs);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--mantine-color-black);
+}
+
+.title {
+  font-weight: 400;
+  font-size: x-large;
+  margin-bottom: 0.5rem;
+}
