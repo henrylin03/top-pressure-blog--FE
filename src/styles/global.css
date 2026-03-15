@@ -25,4 +25,9 @@ main {
 
 h1 {
   font-family: var(--fancy-font);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
