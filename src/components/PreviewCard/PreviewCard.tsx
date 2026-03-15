@@ -20,7 +20,12 @@ const PreviewCard = ({ post }: Props) => {
 				<p className={styles.postedDate}>{postedDateFormatted}</p>
 			</Stack>
 			<p className={styles.lede}>{post.lede}</p>
-			<Anchor component={Link} to={post.linkToFullText} underline="hover">
+			<Anchor
+				component={Link}
+				to={post.linkToFullText}
+				underline="hover"
+				className={styles.cardLink}
+			>
 				Read more
 			</Anchor>
 		</Card>
