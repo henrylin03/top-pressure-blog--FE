@@ -3,6 +3,11 @@
   padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
 }
 
+.card:hover {
+  transform: translateY(-2%);
+  transition: transform .1s ease-in-out
+}
+
 .heading {
   font-weight: 400;
   line-height: 1.4;
