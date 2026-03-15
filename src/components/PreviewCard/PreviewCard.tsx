@@ -14,19 +14,13 @@ const PreviewCard = ({ post }: Props) => {
 	);
 
 	return (
-		<Card
-			shadow="xs"
-			withBorder
-			component={Link}
-			to={post.linkToFullText}
-			className={styles.card}
-		>
+		<Card shadow="xs" withBorder className={styles.card}>
 			<Stack component="header" gap="xs">
 				<h3 className={styles.heading}>{post.title}</h3>
 				<p className={styles.postedDate}>{postedDateFormatted}</p>
 			</Stack>
 			<p>{post.lede}</p>
-			<Anchor href={post.linkToFullText} underline="hover">
+			<Anchor component={Link} to={post.linkToFullText} underline="hover">
 				Read more
 			</Anchor>
 		</Card>
