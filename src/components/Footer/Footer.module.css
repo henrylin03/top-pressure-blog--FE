@@ -1,7 +1,7 @@
 .footer {
   padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
   box-shadow: var(--mantine-shadow-xs);
-  background-color: var(--mantine-color-gray-1);
+  background-color: var(--mantine-color-gray-3);
   display: flex;
   align-items: center;
   justify-content: space-between;
