@@ -22,7 +22,7 @@ const Feed = ({ posts }: Props) => {
 	const chunkedPosts = chunk(posts, MAX_ITEMS_ON_SINGLE_PAGE);
 
 	return (
-		<Stack component="section" my="xl" className={styles.section}>
+		<Stack component="section" my="xl" gap="xl">
 			<Stack component="ul" className={styles.list}>
 				{chunkedPosts[activePage - 1].map((post) => (
 					<li key={post.linkToFullText}>
@@ -35,7 +35,8 @@ const Feed = ({ posts }: Props) => {
 				total={Math.ceil(posts.length / MAX_ITEMS_ON_SINGLE_PAGE)}
 				value={activePage}
 				onChange={setPage}
-				className={styles.pagination}
+				mx="auto"
+				mt="xl"
 			/>
 		</Stack>
 	);
