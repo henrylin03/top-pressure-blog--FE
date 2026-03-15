@@ -1,5 +1,6 @@
 .header {
   box-shadow: var(--mantine-shadow-xs);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg);
 }
 
 .link {

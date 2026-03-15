@@ -4,7 +4,7 @@ import logo from "/images/logo.png";
 import styles from "./Header.module.css";
 
 const Header = () => (
-	<Box component="header" className={styles.header} px="lg" py="sm">
+	<Box component="header" className={styles.header}>
 		<Group
 			gap="lg"
 			h="100%"
