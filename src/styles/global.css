@@ -1,10 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Outfit:wght@100..900&display=swap");
 
+:root {
+  --standard-font: "Outfit", Calibri, sans-serif;
+  --fancy-font: "Corben", "Outfit", Calibri, sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Outfit", Calibri, sans-serif;
+  font-family: var(--standard-font);
 }
 
 #root {
@@ -18,5 +23,5 @@ main {
 }
 
 h1 {
-  font-family: "Corben", "Outfit", Calibri, sans-serif;
+  font-family: var(--fancy-font);
 }
