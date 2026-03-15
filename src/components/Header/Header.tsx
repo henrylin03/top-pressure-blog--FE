@@ -6,7 +6,7 @@ import styles from "./Header.module.css";
 const Header = () => (
 	<Box component="header" className={styles.header}>
 		<Group
-			gap="lg"
+			gap="md"
 			h="100%"
 			renderRoot={(props) => <Link to="/" aria-label="Go home" {...props} />}
 			className={styles.link}

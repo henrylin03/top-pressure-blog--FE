@@ -11,3 +11,14 @@
 .copyrightText {
   opacity: 70%;
 }
+
+/* MEDIA QUERIES */
+@media (max-width: $mantine-breakpoint-xs) {
+  .footer {
+    flex-direction: column-reverse;
+  }
+
+  .logo {
+    display: none;
+  }
+}
