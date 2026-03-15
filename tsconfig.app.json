@@ -27,6 +27,7 @@
 		/* Aliases */
 		"baseUrl": ".",
 		"paths": {
+			"@/*": ["./src/*"],
 			"@components/*": ["./src/components/*"],
 			"@testUtils/*": ["./test-utils/*"]
 		}

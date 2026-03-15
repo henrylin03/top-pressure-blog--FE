@@ -1,18 +1,11 @@
-import styles from "./Feed.module.css";
-
-type Post = {
-	title: string;
-	lede: string;
-	postedDate: Date;
-	linkToFullText: string;
-};
+import type { Post } from "@/data/fakePosts";
 
 interface Props {
 	posts: Post[];
 }
 
-const Feed = ({ posts }: Props) => {
-	return <section className={styles.section}></section>;
-};
+const Feed = ({ posts }: Props) => (
+	<section>{posts.map((post) => post.title)}</section>
+);
 
 export default Feed;

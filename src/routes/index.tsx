@@ -1,5 +1,7 @@
+import Feed from "@components/Feed/Feed";
 import { Container } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
+import { POSTS } from "@/data/fakePosts";
 import styles from "../styles/Home.module.css";
 
 const Index = () => (
@@ -12,6 +14,8 @@ const Index = () => (
 				giving hugs to the homies, all are welcome here.
 			</p>
 		</header>
+
+		<Feed posts={POSTS} />
 	</Container>
 );
 
