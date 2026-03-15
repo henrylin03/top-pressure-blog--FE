@@ -5,7 +5,7 @@ import { POSTS } from "@/data/fakePosts";
 import styles from "../styles/Home.module.css";
 
 const Index = () => (
-	<Container my="xl">
+	<Container my="xl" h="100%">
 		<header>
 			<h1 className={styles.heading}>Top Pressure Blog</h1>
 			<p className={styles.text}>
