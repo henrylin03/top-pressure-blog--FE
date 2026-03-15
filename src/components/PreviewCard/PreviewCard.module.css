@@ -27,3 +27,16 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* MEDIA QUERIES */
+@media (max-width: $mantine-breakpoint-sm) {
+  .card {
+    gap: var(--mantine-spacing-sm);
+    padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
+  }
+
+  .heading {
+    font-size: 2rem;
+    line-height: 1.25
+  }
+}
