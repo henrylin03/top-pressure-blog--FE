@@ -7,11 +7,13 @@ import {
 	Text,
 	TextInput,
 } from "@mantine/core";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import styles from "@/styles/Login.module.css";
 import logoImg from "/images/logo.png";
 
 const LoginPage = () => {
+	const navigate = useNavigate();
+
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -27,7 +29,7 @@ const LoginPage = () => {
 			}),
 		});
 
-		console.log("response:", response);
+		if (response.ok) navigate({ to: "/" });
 	};
 
 	return (
