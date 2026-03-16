@@ -30,11 +30,14 @@ const LoginPage = () => {
 				password: formDataObject.get("password"),
 			}),
 		});
-		console.log(response);
 
 		if (response.status === 401)
 			return setError("The username or password you entered is incorrect.");
-		if (response.ok) return navigate({ to: "/" });
+		if (response.ok) {
+			const { token: jwt } = await response.json();
+			localStorage.setItem("jwt", jwt);
+			return navigate({ to: "/" });
+		}
 		setError(
 			"An unknown error has occurred. Please try again in a minute or two.",
 		);
