@@ -8,10 +8,12 @@ import {
 	TextInput,
 } from "@mantine/core";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import styles from "@/styles/Login.module.css";
 import logoImg from "/images/logo.png";
 
 const LoginPage = () => {
+	const [error, setError] = useState<string>("");
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -28,8 +30,14 @@ const LoginPage = () => {
 				password: formDataObject.get("password"),
 			}),
 		});
+		console.log(response);
 
-		if (response.ok) navigate({ to: "/" });
+		if (response.status === 401)
+			return setError("The username or password you entered is incorrect.");
+		if (response.ok) return navigate({ to: "/" });
+		setError(
+			"An unknown error has occurred. Please try again in a minute or two.",
+		);
 	};
 
 	return (
@@ -73,6 +81,13 @@ const LoginPage = () => {
 									name="password"
 								/>
 							</li>
+							{error && (
+								<li>
+									<Text fz="sm" c="#FF3399">
+										Incorrect username or password.
+									</Text>
+								</li>
+							)}
 							<li>
 								<Button size="md" fullWidth type="submit">
 									Sign in
