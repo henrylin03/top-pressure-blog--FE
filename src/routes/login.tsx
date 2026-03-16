@@ -47,18 +47,17 @@ const LoginPage = () => {
 				maw="24rem"
 				m="auto"
 				pt="xl"
-				pb="5rem"
-				px="2.5rem"
+				pb={{ base: "xl", xs: "5rem" }}
+				px={{ base: "md", xs: "2.5rem" }}
 				radius="lg"
 			>
 				<Stack align="center" gap="lg">
 					<Stack component="header" align="center" gap={0}>
 						<Link to="/" aria-label="Return to home page">
 							<img
+								className={styles.logo}
 								src={logoImg}
 								alt="Logo of Top Pressure Blog"
-								width="80"
-								height="80"
 								loading="eager"
 							/>
 						</Link>
