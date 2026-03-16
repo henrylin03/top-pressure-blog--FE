@@ -3,3 +3,11 @@
   font-weight: 500;
   font-size: 1.8rem;
 }
+
+.form {
+  width: 100%;
+}
+
+.inputs {
+  list-style-type: none;
+}
