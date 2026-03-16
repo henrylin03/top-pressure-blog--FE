@@ -12,8 +12,16 @@ import styles from "@/styles/Login.module.css";
 import logoImg from "/images/logo.png";
 
 const LoginPage = () => (
-	<Container>
-		<Card shadow="sm" maw="28rem" mx="auto" py="xl" px="5rem">
+	<Container mt="5rem">
+		<Card
+			shadow="sm"
+			maw="24rem"
+			m="auto"
+			pt="xl"
+			pb="5rem"
+			px="2.5rem"
+			radius="lg"
+		>
 			<Stack align="center" gap="lg">
 				<Stack component="header" align="center" gap={0}>
 					<Link to="/" aria-label="Return to home page">
