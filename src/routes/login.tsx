@@ -4,6 +4,7 @@ import {
 	Container,
 	PasswordInput,
 	Stack,
+	Text,
 	TextInput,
 } from "@mantine/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -13,7 +14,7 @@ import logoImg from "/images/logo.png";
 const LoginPage = () => (
 	<Container>
 		<Card shadow="sm" maw="28rem" mx="auto" py="xl" px="5rem">
-			<Stack gap="xl" align="center">
+			<Stack align="center" gap="lg">
 				<Stack component="header" align="center" gap={0}>
 					<Link to="/" aria-label="Return to home page">
 						<img
@@ -46,6 +47,10 @@ const LoginPage = () => (
 						</li>
 					</Stack>
 				</form>
+
+				<Text fz="xs" c="dimmed">
+					Don't have an account? <Link to="/signup">Sign up</Link>
+				</Text>
 			</Stack>
 		</Card>
 	</Container>

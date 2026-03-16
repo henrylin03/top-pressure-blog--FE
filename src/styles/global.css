@@ -30,3 +30,7 @@ h1 {
 p {
   text-wrap: pretty;
 }
+
+a {
+  color: inherit;
+}
