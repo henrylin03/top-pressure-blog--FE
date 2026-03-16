@@ -10,4 +10,5 @@ export const theme = createTheme({
 	primaryColor: "cyan",
 	black: COLOURS.black,
 	defaultRadius: "md",
+	fontFamily: "Outfit, Calibri, sans-serif",
 });

@@ -9,7 +9,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--standard-font);
 }
 
 #root {
@@ -20,7 +19,7 @@
 
 main {
   flex: 1;
-  background-color: var(--mantine-color-gray-1)
+  background-color: var(--mantine-color-gray-1);
 }
 
 h1 {
@@ -30,4 +29,8 @@ h1 {
 
 p {
   text-wrap: pretty;
+}
+
+a {
+  color: inherit;
 }
