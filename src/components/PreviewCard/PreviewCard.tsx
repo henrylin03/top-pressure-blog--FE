@@ -1,15 +1,15 @@
 import { Anchor, Card, Stack } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import type { Post } from "@/data/fakePosts";
+import type { PublishedPostPreview } from "@/types/post";
 import styles from "./PreviewCard.module.css";
 
 interface Props {
-	post: Post;
+	post: PublishedPostPreview;
 }
 
 const PreviewCard = ({ post }: Props) => {
-	const postedDateFormatted: string = dayjs(post.postedDate).format(
+	const postedDateFormatted: string = dayjs(post.publishedAt).format(
 		"D MMMM YYYY",
 	);
 
@@ -22,7 +22,7 @@ const PreviewCard = ({ post }: Props) => {
 			<p className={styles.lede}>{post.lede}</p>
 			<Anchor
 				component={Link}
-				to={post.linkToFullText}
+				to={`/posts/${post.id}`}
 				underline="hover"
 				className={styles.cardLink}
 			>

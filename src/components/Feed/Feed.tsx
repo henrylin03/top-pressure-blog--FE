@@ -1,11 +1,11 @@
 import PreviewCard from "@components/PreviewCard/PreviewCard";
 import { Pagination, Stack } from "@mantine/core";
 import { useState } from "react";
-import type { Post } from "@/data/fakePosts";
+import type { PublishedPostPreview } from "@/types/post";
 import styles from "./Feed.module.css";
 
 interface Props {
-	posts: Post[];
+	posts: PublishedPostPreview[];
 }
 
 function chunk<T>(array: T[], size: number): T[][] {
@@ -25,7 +25,7 @@ const Feed = ({ posts }: Props) => {
 		<Stack component="section" my="xl" gap="xl">
 			<Stack component="ul" className={styles.list}>
 				{chunkedPosts[activePage - 1].map((post) => (
-					<li key={post.linkToFullText}>
+					<li key={post.id}>
 						<PreviewCard post={post} />
 					</li>
 				))}
