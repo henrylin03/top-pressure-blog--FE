@@ -9,17 +9,22 @@ interface RouterContext {
 	auth: AuthState;
 }
 
-const RootLayout = () => (
-	<>
-		<Header />
-		<main>
-			<Outlet />
-		</main>
-		<Footer links={SOCIALS_LINKS} />
+const RootLayout = () => {
+	const { auth } = Route.useRouteContext();
+	console.log("auth:", auth);
 
-		<TanStackRouterDevtools />
-	</>
-);
+	return (
+		<>
+			<Header />
+			<main>
+				<Outlet />
+			</main>
+			<Footer links={SOCIALS_LINKS} />
+
+			<TanStackRouterDevtools />
+		</>
+	);
+};
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootLayout,
