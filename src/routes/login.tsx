@@ -7,7 +7,12 @@ import {
 	Text,
 	TextInput,
 } from "@mantine/core";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import {
+	createFileRoute,
+	Link,
+	useNavigate,
+	useRouter,
+} from "@tanstack/react-router";
 import { useState } from "react";
 import styles from "@/styles/Login.module.css";
 import logoImg from "/images/logo.png";
@@ -17,6 +22,7 @@ const LoginPage = () => {
 	const [error, setError] = useState("");
 	const { auth } = Route.useRouteContext();
 	const navigate = useNavigate();
+	const router = useRouter();
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -29,6 +35,7 @@ const LoginPage = () => {
 
 		try {
 			await auth.login(String(usernameOrEmail), String(password));
+			await router.invalidate();
 			navigate({ to: "/" });
 		} catch (_err) {
 			setError("Invalid username or password");
