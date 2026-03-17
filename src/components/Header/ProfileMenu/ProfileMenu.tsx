@@ -1,36 +1,6 @@
-import {
-	Avatar,
-	Group,
-	type MantineSize,
-	Menu,
-	Text,
-	UnstyledButton,
-} from "@mantine/core";
-import { forwardRef } from "react";
-
-interface UserAvatarProps {
-	username: string;
-	size?: MantineSize;
-}
-
-const UserAvatar = ({ username, size }: UserAvatarProps) => (
-	<Avatar variant="filled" color="cyan" radius="xl" size={size}>
-		{username[0].toUpperCase()}
-	</Avatar>
-);
-
-interface ProfileButtonProps extends React.ComponentPropsWithoutRef<"button"> {
-	username: string;
-	email: string;
-}
-
-const ProfileButton = forwardRef<HTMLButtonElement, ProfileButtonProps>(
-	({ username, email, ...others }: ProfileButtonProps, ref) => (
-		<UnstyledButton ref={ref} {...others}>
-			<UserAvatar username={username} />
-		</UnstyledButton>
-	),
-);
+import { Group, Menu, Text } from "@mantine/core";
+import ProfileButton from "./ProfileButton";
+import UserAvatar from "./UserAvatar";
 
 const ProfileMenu = ({
 	username,
