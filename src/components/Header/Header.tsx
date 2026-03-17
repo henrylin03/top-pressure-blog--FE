@@ -1,17 +1,14 @@
 import { Box, Group } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
-import type { User } from "@/types/user";
+import type { AuthState } from "@/contexts/auth";
 import logo from "/images/logo.png";
 import styles from "./Header.module.css";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 import SignInButton from "./SignInButton";
 
-interface Props {
-	isAuthenticated: boolean;
-	user: User | null;
-}
+type Props = Omit<AuthState, "login">;
 
-const Header = ({ isAuthenticated, user }: Props) => (
+const Header = ({ isAuthenticated, user, logout }: Props) => (
 	<Box component="header" className={styles.header}>
 		<Group
 			gap="md"
@@ -24,7 +21,11 @@ const Header = ({ isAuthenticated, user }: Props) => (
 		</Group>
 
 		{isAuthenticated && user ? (
-			<ProfileMenu username={user.username} email={user.email} />
+			<ProfileMenu
+				username={user.username}
+				email={user.email}
+				logout={logout}
+			/>
 		) : (
 			<SignInButton />
 		)}

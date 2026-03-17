@@ -2,13 +2,9 @@ import { Group, Menu, Text } from "@mantine/core";
 import ProfileButton from "./ProfileButton";
 import UserAvatar from "./UserAvatar";
 
-const ProfileMenu = ({
-	username,
-	email,
-}: {
-	username: string;
-	email: string;
-}) => (
+type Props = Readonly<{ username: string; email: string; logout: () => void }>;
+
+const ProfileMenu = ({ username, email, logout }: Props) => (
 	<Menu withArrow width={180}>
 		<Menu.Target>
 			<ProfileButton username={username} email={email} />
@@ -22,7 +18,7 @@ const ProfileMenu = ({
 			</Menu.Label>
 
 			<Menu.Divider />
-			<Menu.Item>Log out</Menu.Item>
+			<Menu.Item onClick={logout}>Log out</Menu.Item>
 		</Menu.Dropdown>
 	</Menu>
 );
