@@ -1,13 +1,8 @@
-import { Box, Button, Group } from "@mantine/core";
+import { Box, Group } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import logo from "/images/logo.png";
 import styles from "./Header.module.css";
-
-const SignInButton = () => (
-	<Button variant="filled" component={Link} to="/login" size="md">
-		Sign in
-	</Button>
-);
+import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
 const Header = () => (
 	<Box component="header" className={styles.header}>
@@ -20,7 +15,8 @@ const Header = () => (
 			<img src={logo} loading="eager" alt="logo" width="32" height="32" />
 			<h1 className={styles.title}>Top Pressure</h1>
 		</Group>
-		<SignInButton />
+		{/* <SignInButton /> */}
+		<ProfileMenu username={"mock-user"} email={"mock.user@gmail.com"} />
 	</Box>
 );
 
