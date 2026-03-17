@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 import type { User } from "@/types/user";
 
 export type AuthState = {
@@ -8,6 +14,8 @@ export type AuthState = {
 	logout: () => void;
 };
 
+const JWT_LOCALSTORAGE_KEY = "jwt";
+
 const AuthContext = createContext<AuthState | undefined>(undefined);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -15,25 +23,23 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const JWT_LOCALSTORAGE_KEY = "jwt";
-
-	const validateJwt = async (localStorageKey: string, token: string) => {
+	const validateJwt = useCallback(async (token: string) => {
 		const res = await fetch("/api/validate-jwt", {
 			headers: { Authorization: `Bearer ${token}` },
 		});
-		if (!res.ok) return localStorage.removeItem(localStorageKey);
+		if (!res.ok) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
 
 		const { user } = await res.json();
-		if (!user) return localStorage.removeItem(localStorageKey); // not authenticated
+		if (!user) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
 		setUser(user);
 		setIsAuthenticated(true);
-	};
+	}, []);
 
 	useEffect(() => {
 		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
 		if (!token) return setIsLoading(false);
-		validateJwt(JWT_LOCALSTORAGE_KEY, token).finally(() => setIsLoading(false));
-	});
+		validateJwt(token).finally(() => setIsLoading(false));
+	}, [validateJwt]);
 
 	if (isLoading)
 		return (
@@ -53,7 +59,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		const { token } = await loginRes.json();
 		localStorage.setItem(JWT_LOCALSTORAGE_KEY, token);
 
-		await validateJwt(JWT_LOCALSTORAGE_KEY, token);
+		await validateJwt(token);
 	};
 
 	const logout = () => {
