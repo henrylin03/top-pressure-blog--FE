@@ -11,11 +11,11 @@ interface RouterContext {
 
 const RootLayout = () => {
 	const { auth } = Route.useRouteContext();
-	console.log("auth:", auth);
+	const { isAuthenticated, user } = auth;
 
 	return (
 		<>
-			<Header />
+			<Header isAuthenticated={isAuthenticated} user={user} />
 			<main>
 				<Outlet />
 			</main>
