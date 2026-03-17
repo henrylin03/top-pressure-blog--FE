@@ -7,40 +7,41 @@ import {
 	Text,
 	TextInput,
 } from "@mantine/core";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import {
+	createFileRoute,
+	Link,
+	useNavigate,
+	useRouter,
+} from "@tanstack/react-router";
 import { useState } from "react";
 import styles from "@/styles/Login.module.css";
 import logoImg from "/images/logo.png";
 
 const LoginPage = () => {
-	const [error, setError] = useState<string>("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
+	const { auth } = Route.useRouteContext();
 	const navigate = useNavigate();
+	const router = useRouter();
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setIsLoading(true);
+		setError("");
 
 		const formDataObject = new FormData(e.currentTarget);
-		const response = await fetch("/api/login", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				usernameOrEmail: formDataObject.get("usernameOrEmail"),
-				password: formDataObject.get("password"),
-			}),
-		});
+		const usernameOrEmail = formDataObject.get("usernameOrEmail");
+		const password = formDataObject.get("password");
 
-		if (response.status === 401)
-			return setError("The username or password you entered is incorrect.");
-		if (response.ok) {
-			const { token: jwt } = await response.json();
-			localStorage.setItem("jwt", jwt);
-			return navigate({ to: "/" });
+		try {
+			await auth.login(String(usernameOrEmail), String(password));
+			await router.invalidate();
+			navigate({ to: "/" });
+		} catch (_err) {
+			setError("Invalid username or password");
+		} finally {
+			setIsLoading(false);
 		}
-		setError(
-			"An unknown error has occurred. Please try again in a minute or two.",
-		);
 	};
 
 	return (
@@ -86,13 +87,13 @@ const LoginPage = () => {
 							{error && (
 								<li>
 									<Text fz="sm" c="#FF3399">
-										Incorrect username or password.
+										{error}
 									</Text>
 								</li>
 							)}
 							<li>
-								<Button size="md" fullWidth type="submit">
-									Sign in
+								<Button size="md" fullWidth type="submit" loading={isLoading}>
+									{isLoading ? "Signing in" : "Sign in"}
 								</Button>
 							</li>
 						</Stack>
