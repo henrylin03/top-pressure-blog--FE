@@ -25,17 +25,21 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => res.json())
-			.then((userData) => {
-				if (userData.valid) {
-					setUser(userData.user);
-					setIsAuthenticated(true);
-				} else localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
+			.then((json) => {
+				if (!json.user) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
+				setUser(json.user);
+				setIsAuthenticated(true);
 			})
 			.catch(() => localStorage.removeItem(JWT_LOCALSTORAGE_KEY))
 			.finally(() => setIsLoading(false));
 	}, []);
 
-	if (isLoading) return <div>Loading...</div>;
+	if (isLoading)
+		return (
+			<div>
+				<p>Loading...</p>
+			</div>
+		);
 
 	const login = async (usernameOrEmail: string, password: string) => {
 		const res = await fetch("/api/login", {
