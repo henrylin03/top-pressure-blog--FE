@@ -17,22 +17,23 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const JWT_LOCALSTORAGE_KEY = "jwt";
 
+	const validateJwt = async (localStorageKey: string, token: string) => {
+		const res = await fetch("/api/validate-jwt", {
+			headers: { Authorization: `Bearer ${token}` },
+		});
+		if (!res.ok) return localStorage.removeItem(localStorageKey);
+
+		const { user } = await res.json();
+		if (!user) return localStorage.removeItem(localStorageKey); // not authenticated
+		setUser(user);
+		setIsAuthenticated(true);
+	};
+
 	useEffect(() => {
 		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
 		if (!token) return setIsLoading(false);
-
-		fetch("/api/validate-jwt", {
-			headers: { Authorization: `Bearer ${token}` },
-		})
-			.then((res) => res.json())
-			.then((json) => {
-				if (!json.user) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
-				setUser(json.user);
-				setIsAuthenticated(true);
-			})
-			.catch(() => localStorage.removeItem(JWT_LOCALSTORAGE_KEY))
-			.finally(() => setIsLoading(false));
-	}, []);
+		validateJwt(JWT_LOCALSTORAGE_KEY, token).finally(() => setIsLoading(false));
+	});
 
 	if (isLoading)
 		return (
@@ -42,17 +43,17 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		);
 
 	const login = async (usernameOrEmail: string, password: string) => {
-		const res = await fetch("/api/login", {
+		const loginRes = await fetch("/api/login", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ usernameOrEmail, password }),
 		});
 
-		if (!res.ok) throw new Error("Authentication failed");
+		if (!loginRes.ok) throw new Error("Authentication failed");
+		const { token } = await loginRes.json();
+		localStorage.setItem(JWT_LOCALSTORAGE_KEY, token);
 
-		const json = await res.json();
-		setIsAuthenticated(true);
-		localStorage.setItem(JWT_LOCALSTORAGE_KEY, json.token);
+		await validateJwt(JWT_LOCALSTORAGE_KEY, token);
 	};
 
 	const logout = () => {
