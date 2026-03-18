@@ -40,18 +40,28 @@ function PostPage() {
 			</Container>
 		);
 
-	const { title, timeToReadInMinutes, text, lede, publishedAt } = post;
-	if (!title || !timeToReadInMinutes || !text || !lede || !publishedAt)
-		return (
-			<Container>
-				An error has occurred when fetching blog post. Please refresh the page.
-			</Container>
-		);
+	const {
+		title,
+		timeToReadInMinutes,
+		text,
+		lede,
+		publishedAt,
+		author,
+		lastModifiedAt,
+	} = post;
 
 	return (
 		<Container className={styles.wrapper} mt="xl">
 			<Container component="section" className={styles.section}>
-				<PostHeader post={post} />
+				<PostHeader
+					postDetails={{
+						author,
+						lastModifiedAt,
+						publishedAt,
+						title,
+						timeToReadInMinutes,
+					}}
+				/>
 			</Container>
 
 			<Container component="section" className={styles.section}>
