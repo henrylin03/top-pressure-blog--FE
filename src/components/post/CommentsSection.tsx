@@ -1,27 +1,21 @@
 import UserAvatar from "@components/UserAvatar";
 import { Avatar, Group, Stack, Text, TextInput, Title } from "@mantine/core";
-import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/contexts/auth";
 import type { Comment } from "@/types/comment";
 import type { User } from "@/types/user";
+import LoginLink from "../LoginLink";
 
-const UnauthenticatedCommentInput = () => {
-	const navigate = useNavigate();
-
-	return (
-		<Stack component="article">
-			<Group gap="xs">
-				<Avatar size="md" />
-				<Text c="dark.3">Join the discussion</Text>
-			</Group>
-			<TextInput
-				placeholder="Share your thoughts"
-				aria-label="Sign into your account to leave a comment"
-				onFocus={() => navigate({ to: "/login" })}
-			/>
-		</Stack>
-	);
-};
+const UnauthenticatedCommentInput = () => (
+	<Stack component="article">
+		<Group gap="xs">
+			<Avatar size="md" />
+			<Text c="dark.3">Join the discussion</Text>
+		</Group>
+		<LoginLink>
+			<TextInput placeholder="Share your thoughts" />
+		</LoginLink>
+	</Stack>
+);
 
 interface AuthenticatedCommentInputProps {
 	username: User["username"];
