@@ -7,7 +7,7 @@ import {
 } from "react";
 import type { User } from "@/types/user";
 
-type AuthState = {
+export type AuthState = {
 	isAuthenticated: boolean;
 	user: User | null;
 	login: (usernameOrEmail: string, password: string) => Promise<void>;

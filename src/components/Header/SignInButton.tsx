@@ -1,10 +1,15 @@
 import { Button } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 
-const SignInButton = () => (
-	<Button variant="filled" component={Link} to="/login" size="md">
-		Sign in
-	</Button>
-);
+const SignInButton = () => {
+	const router = useRouter();
+	return (
+		<Link to="/login" search={{ redirect: router.state.location.href }}>
+			<Button variant="filled" size="md">
+				Sign in
+			</Button>
+		</Link>
+	);
+};
 
 export default SignInButton;

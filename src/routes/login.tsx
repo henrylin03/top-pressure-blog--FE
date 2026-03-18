@@ -14,15 +14,24 @@ import {
 	useRouter,
 } from "@tanstack/react-router";
 import { useState } from "react";
+import { useAuth } from "@/contexts/auth";
 import styles from "@/styles/Login.module.css";
 import logoImg from "/images/logo.png";
 
-const LoginPage = () => {
+export const Route = createFileRoute("/login")({
+	validateSearch: (search) => ({
+		redirect: search.redirect || "/",
+	}),
+	component: LoginPage,
+});
+
+function LoginPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
-	const { auth } = Route.useRouteContext();
+	const { login } = useAuth();
 	const navigate = useNavigate();
 	const router = useRouter();
+	const { redirect } = Route.useSearch();
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -34,9 +43,9 @@ const LoginPage = () => {
 		const password = formDataObject.get("password");
 
 		try {
-			await auth.login(String(usernameOrEmail), String(password));
+			await login(String(usernameOrEmail), String(password));
 			await router.invalidate();
-			navigate({ to: "/" });
+			navigate({ to: redirect ? String(redirect) : "/" });
 		} catch (_err) {
 			setError("Invalid username or password");
 		} finally {
@@ -106,8 +115,4 @@ const LoginPage = () => {
 			</Card>
 		</Container>
 	);
-};
-
-export const Route = createFileRoute("/login")({
-	component: LoginPage,
-});
+}
