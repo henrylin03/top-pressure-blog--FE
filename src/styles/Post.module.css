@@ -1,4 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xl);
+}
+
 .section {
   background-color: white;
   border-radius: var(--mantine-radius-md);
+  width: 100%;
+  padding: var(--mantine-spacing-xl);
 }
