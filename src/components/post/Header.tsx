@@ -1,5 +1,5 @@
 import { Anchor, Group, Stack, Text, Title } from "@mantine/core";
-import { IconHourglassHigh } from "@tabler/icons-react";
+import { IconBook } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import type { PublishedPost } from "@/types/post";
 
@@ -29,7 +29,7 @@ const PostHeader = ({ postDetails }: Props) => {
 	return (
 		<>
 			<Group component={Text} fz="sm" c="dark.3" gap={8}>
-				<IconHourglassHigh size={16} />
+				<IconBook size={16} strokeWidth={1} />
 				<span>{timeToReadRounded} min read</span>
 			</Group>
 			<Title order={2} size="h1" fw={400}>
