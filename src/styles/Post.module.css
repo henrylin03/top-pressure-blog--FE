@@ -6,8 +6,12 @@
 
 .section {
   background-color: white;
-  border-radius: var(--mantine-radius-md);
+  border-radius: var(--mantine-radius-lg);
   width: 100%;
   padding: var(--mantine-spacing-xl);
   box-shadow: var(--mantine-shadow-xs);
+}
+
+.bodyText {
+  white-space: pre-line;
 }

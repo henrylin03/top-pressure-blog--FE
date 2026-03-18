@@ -1,6 +1,7 @@
-import { Container, Divider } from "@mantine/core";
+import { Container } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import PostBody from "@/components/post/Body";
 import CommentsSection from "@/components/post/CommentsSection";
 import PostHeader from "@/components/post/Header";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
@@ -50,10 +51,8 @@ function PostPage() {
 		lastModifiedAt,
 	} = post;
 
-	console.log(post);
-
 	return (
-		<Container className={styles.wrapper} mt="xl">
+		<Container className={styles.wrapper} my="xl">
 			<Container component="section" className={styles.section}>
 				<PostHeader
 					postDetails={{
@@ -64,7 +63,7 @@ function PostPage() {
 						timeToReadInMinutes,
 					}}
 				/>
-				<Divider my="md" />
+				<PostBody lede={lede} text={text} />
 			</Container>
 
 			<Container component="section" className={styles.section}>
