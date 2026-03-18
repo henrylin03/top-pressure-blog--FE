@@ -1,7 +1,8 @@
-import { Anchor, Container, Group, Text, Title } from "@mantine/core";
-import { IconHourglassHigh } from "@tabler/icons-react";
+import { Container } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import CommentsSection from "@/components/post/CommentsSection";
+import PostHeader from "@/components/post/Header";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import styles from "@/styles/Post.module.css";
 import type { PublishedPost } from "@/types/post";
@@ -47,30 +48,14 @@ function PostPage() {
 			</Container>
 		);
 
-	const timeToReadPostRounded = Math.ceil(post.timeToReadInMinutes);
-
 	return (
 		<Container className={styles.wrapper} mt="xl">
 			<Container component="section" className={styles.section}>
-				<Group component={Text} fz="sm" c="dimmed" gap={8}>
-					<IconHourglassHigh size={16} />
-					<span>{timeToReadPostRounded} min read</span>
-				</Group>
-				<Title order={2} size="h1" fw={400}>
-					{post?.title}
-				</Title>
-				<Text>
-					{String(publishedAt)} by{" "}
-					<Anchor href="https://henrylin.io" target="_blank" rel="noreferrer">
-						Henry Lin
-					</Anchor>
-				</Text>
+				<PostHeader post={post} />
 			</Container>
 
 			<Container component="section" className={styles.section}>
-				<Title order={3} fw={400}>
-					Latest comments (2)
-				</Title>
+				<CommentsSection comments={[{ id: "test", text: "hello" }]} />
 			</Container>
 		</Container>
 	);
