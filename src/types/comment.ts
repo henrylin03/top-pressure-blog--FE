@@ -3,5 +3,5 @@ export type Comment = {
 	text: string;
 	postedAt: Date;
 	isEdited: boolean;
-	lastEditedAt: boolean;
+	lastEditedAt?: boolean;
 };
