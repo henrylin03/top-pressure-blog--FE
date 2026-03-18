@@ -1,6 +1,6 @@
+import UserAvatar from "@components/UserAvatar";
 import { UnstyledButton } from "@mantine/core";
 import { forwardRef } from "react";
-import UserAvatar from "./UserAvatar";
 
 interface ProfileButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 	username: string;
