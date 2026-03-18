@@ -1,4 +1,4 @@
-import { Container } from "@mantine/core";
+import { Container, Divider } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import CommentsSection from "@/components/post/CommentsSection";
@@ -64,6 +64,7 @@ function PostPage() {
 						timeToReadInMinutes,
 					}}
 				/>
+				<Divider my="md" />
 			</Container>
 
 			<Container component="section" className={styles.section}>
