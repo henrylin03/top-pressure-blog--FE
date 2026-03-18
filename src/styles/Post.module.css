@@ -9,4 +9,5 @@
   border-radius: var(--mantine-radius-md);
   width: 100%;
   padding: var(--mantine-spacing-xl);
+  box-shadow: var(--mantine-shadow-xs);
 }
