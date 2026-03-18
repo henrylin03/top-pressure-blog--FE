@@ -1,27 +1,63 @@
-import { Anchor, Group, Text, Title } from "@mantine/core";
-import { IconHourglassHigh } from "@tabler/icons-react";
+import { Anchor, Group, Stack, Text, Title } from "@mantine/core";
+import { IconBook } from "@tabler/icons-react";
+import dayjs from "dayjs";
 import type { PublishedPost } from "@/types/post";
 
 interface Props {
-	post: PublishedPost;
+	postDetails: Pick<
+		PublishedPost,
+		| "author"
+		| "lastModifiedAt"
+		| "publishedAt"
+		| "title"
+		| "timeToReadInMinutes"
+	>;
 }
 
-const PostHeader = ({ post }: Props) => (
-	<>
-		<Group component={Text} fz="sm" c="dimmed" gap={8}>
-			<IconHourglassHigh size={16} />
-			<span>{Math.ceil(post.timeToReadInMinutes)} min read</span>
-		</Group>
-		<Title order={2} size="h1" fw={400}>
-			{post.title}
-		</Title>
-		<Text>
-			{String(post.publishedAt)} by{" "}
-			<Anchor href="https://henrylin.io" target="_blank">
-				Henry Lin
-			</Anchor>
-		</Text>
-	</>
-);
+const PostHeader = ({ postDetails }: Props) => {
+	const DATE_FORMAT = "D MMMM YYYY";
+	const { lastModifiedAt, publishedAt } = postDetails;
+
+	const isUpdatedPost = dayjs(lastModifiedAt).isAfter(dayjs(publishedAt));
+	const dates = {
+		published: dayjs(postDetails.publishedAt).format(DATE_FORMAT),
+		lastModified: dayjs(postDetails.lastModifiedAt).format(DATE_FORMAT),
+	};
+
+	const timeToReadRounded = Math.ceil(postDetails.timeToReadInMinutes);
+
+	return (
+		<>
+			<Group component={Text} fz="sm" c="dark.3" gap={8}>
+				<IconBook size={16} strokeWidth={1} />
+				<span>{timeToReadRounded} min read</span>
+			</Group>
+			<Title order={2} size="h1" fw={400}>
+				{postDetails.title}
+			</Title>
+
+			<Stack mt="md" gap="xs">
+				<Text c="dark.4">
+					{dates.published} by{" "}
+					<Anchor
+						href="https://henrylin.io"
+						target="_blank"
+						underline="not-hover"
+						fw="bold"
+					>
+						Henry Lin
+					</Anchor>
+				</Text>
+				<Group>
+					{isUpdatedPost && (
+						<Text fs="italic" c="dark.4">
+							Updated {dates.lastModified}
+						</Text>
+					)}
+				</Group>
+			</Stack>
+		</>
+	);
+};
 
 export default PostHeader;
