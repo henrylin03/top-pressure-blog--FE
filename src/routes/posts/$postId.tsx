@@ -50,6 +50,8 @@ function PostPage() {
 		lastModifiedAt,
 	} = post;
 
+	console.log(post);
+
 	return (
 		<Container className={styles.wrapper} mt="xl">
 			<Container component="section" className={styles.section}>
