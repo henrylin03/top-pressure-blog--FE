@@ -8,10 +8,16 @@
   background-color: white;
   border-radius: var(--mantine-radius-lg);
   width: 100%;
-  padding: var(--mantine-spacing-xl);
+  padding: 3rem 3.5rem;
   box-shadow: var(--mantine-shadow-xs);
 }
 
 .bodyText {
   white-space: pre-line;
+}
+
+@media (max-width: $mantine-breakpoint-lg) {
+  .section {
+    padding: var(--mantine-spacing-xl);
+  }
 }
