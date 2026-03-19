@@ -3,6 +3,7 @@ import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import UserAvatar from "@/components/UserAvatar";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
+import type { ServerSideError } from "@/types/error";
 import type { Post } from "@/types/post";
 import type { User } from "@/types/user";
 
@@ -16,13 +17,19 @@ const AuthenticatedCommentInput = ({
 	postId,
 }: AuthenticatedCommentInputProps) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [errors, setErrors] = useState<ServerSideError[] | null>(null);
 	const router = useRouter();
 
-	const sendComment = async (commentText: string) => {
-		const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
+	const postComment = async (commentText: string): Promise<boolean> => {
+		setIsSubmitting(true);
+		setErrors(null);
 
 		try {
-			await fetch(`/api/posts/${postId}/comments`, {
+			const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
+			if (!jwt)
+				throw new Error("User cannot post comment if not authenticated.");
+
+			const res = await fetch(`/api/posts/${postId}/comments`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -30,32 +37,32 @@ const AuthenticatedCommentInput = ({
 				},
 				body: JSON.stringify({ text: commentText }),
 			});
+
+			if (res.ok) return true;
+
+			const { errors } = await res.json();
+			setErrors(errors.map((err: ServerSideError) => err.msg));
+			return false;
 		} catch (error) {
 			console.error("Error when adding comment:", error);
+			return false;
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const formElement = e.currentTarget;
-		const formDataObject = new FormData(formElement);
-		const commentText = formDataObject.get("text");
+		const form = e.currentTarget;
+		const formData = new FormData(form);
+		const commentText = formData.get("text");
 		if (!commentText || !commentText.toString().trim()) return;
 
-		setIsSubmitting(true);
-		try {
-			const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-			if (!jwt)
-				throw new Error("User cannot post comment if not authenticated.");
-
-			await sendComment(commentText.toString());
-			formElement.reset();
-			await router.invalidate();
-		} catch (error) {
-			console.error(error);
-		} finally {
-			setIsSubmitting(false);
+		const isSuccessfulPost = await postComment(String(commentText));
+		if (isSuccessfulPost) {
+			router.invalidate();
+			form.reset();
 		}
 	};
 
@@ -66,7 +73,7 @@ const AuthenticatedCommentInput = ({
 				<Text c="dark.9">{username}</Text>
 			</Group>
 			<form onSubmit={handleSubmit}>
-				<Stack>
+				<Stack gap={0}>
 					<Textarea
 						placeholder="Share your thoughts"
 						autosize
@@ -75,7 +82,9 @@ const AuthenticatedCommentInput = ({
 						name="text"
 						disabled={isSubmitting}
 						required
+						error={Array.isArray(errors) && errors.length > 0}
 					/>
+					<Text fz="sm">error</Text>
 					<Button
 						type="submit"
 						style={{ placeSelf: "end" }}
