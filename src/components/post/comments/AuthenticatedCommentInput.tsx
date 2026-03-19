@@ -1,4 +1,5 @@
 import { Button, Group, Stack, Text, Textarea } from "@mantine/core";
+import { useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import UserAvatar from "@/components/UserAvatar";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
@@ -8,15 +9,14 @@ import type { User } from "@/types/user";
 interface AuthenticatedCommentInputProps {
 	username: User["username"];
 	postId: Post["id"];
-	fetchPost: (postId: string, jwt: string) => Promise<void>;
 }
 
 const AuthenticatedCommentInput = ({
 	username,
 	postId,
-	fetchPost,
 }: AuthenticatedCommentInputProps) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const router = useRouter();
 
 	const sendComment = async (commentText: string) => {
 		const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
@@ -51,7 +51,7 @@ const AuthenticatedCommentInput = ({
 
 			await sendComment(commentText.toString());
 			formElement.reset();
-			await fetchPost(postId, jwt);
+			await router.invalidate();
 		} catch (error) {
 			console.error(error);
 		} finally {
