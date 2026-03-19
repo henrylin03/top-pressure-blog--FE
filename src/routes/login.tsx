@@ -92,11 +92,12 @@ function LoginPage() {
 									placeholder="Password"
 									required
 									name="password"
+									size="sm"
 								/>
 							</li>
 							{error && (
 								<li>
-									<Text fz="sm" c="#FF3399">
+									<Text fz="sm" style={{ color: "var(--mantine-color-error)" }}>
 										{error}
 									</Text>
 								</li>
