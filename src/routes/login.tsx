@@ -16,7 +16,7 @@ import {
 } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "@/contexts/auth";
-import styles from "@/styles/Login.module.css";
+import styles from "@/styles/Auth.module.css";
 import logoImg from "/images/logo.png";
 
 export const Route = createFileRoute("/login")({
