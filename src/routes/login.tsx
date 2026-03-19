@@ -1,4 +1,5 @@
 import {
+	Anchor,
 	Button,
 	Card,
 	Container,
@@ -15,7 +16,7 @@ import {
 } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "@/contexts/auth";
-import styles from "@/styles/Login.module.css";
+import styles from "@/styles/Auth.module.css";
 import logoImg from "/images/logo.png";
 
 export const Route = createFileRoute("/login")({
@@ -109,7 +110,16 @@ function LoginPage() {
 					</form>
 
 					<Text fz="xs" c="dimmed">
-						Don't have an account? <Link to="/signup">Sign up</Link>
+						Don't have an account?{" "}
+						<Anchor
+							component={Link}
+							to="/signup"
+							fz="xs"
+							underline="not-hover"
+							c="dimmed"
+						>
+							Sign up
+						</Anchor>
 					</Text>
 				</Stack>
 			</Card>
