@@ -66,6 +66,8 @@ const AuthenticatedCommentInput = ({
 		}
 	};
 
+	const hasErrors = Array.isArray(errors) && errors.length > 0;
+
 	return (
 		<Stack component="article">
 			<Group gap="xs">
@@ -82,13 +84,28 @@ const AuthenticatedCommentInput = ({
 						name="text"
 						disabled={isSubmitting}
 						required
-						error={Array.isArray(errors) && errors.length > 0}
+						error={hasErrors}
 					/>
-					<Text fz="sm">error</Text>
+
+					{hasErrors && (
+						<Text
+							fz={{ base: "xs", xs: "sm" }}
+							style={{ color: "var(--mantine-color-error)" }}
+							component="ul"
+							mt="4"
+						>
+							{errors.map((err, idx) => (
+								// biome-ignore lint/suspicious/noArrayIndexKey: <no unique identifier for error>
+								<li key={idx}>{String(err)}</li>
+							))}
+						</Text>
+					)}
+
 					<Button
 						type="submit"
 						style={{ placeSelf: "end" }}
 						loading={isSubmitting}
+						mt={hasErrors ? 0 : "xs"}
 					>
 						Add comment
 					</Button>
