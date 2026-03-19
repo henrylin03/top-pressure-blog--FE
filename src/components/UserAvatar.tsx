@@ -6,7 +6,7 @@ interface UserAvatarProps {
 }
 
 const UserAvatar = ({ username, size }: UserAvatarProps) => (
-	<Avatar variant="filled" color="cyan" radius="xl" size={size}>
+	<Avatar color="cyan" radius="xl" size={size}>
 		{username[0].toUpperCase()}
 	</Avatar>
 );
