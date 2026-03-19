@@ -3,15 +3,17 @@ import {
 	Button,
 	Card,
 	Container,
+	List,
 	SimpleGrid,
 	Stack,
 	Text,
 	TextInput,
 	Title,
 } from "@mantine/core";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import styles from "@/styles/Auth.module.css";
+import type { ServerSideError } from "@/types/error";
 import logoImg from "/images/logo.png";
 
 export const Route = createFileRoute("/signup")({
@@ -19,10 +21,43 @@ export const Route = createFileRoute("/signup")({
 });
 
 function SignUpForm() {
-	const [isLoading, _setIsLoading] = useState(false);
-	const [error, _setError] = useState("");
+	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState(false);
+	const [errors, setErrors] = useState<ServerSideError["msg"][] | null>(null);
 
-	const handleSubmit = (_e) => {};
+	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setErrors(null);
+
+		const form = e.currentTarget;
+		const formData = new FormData(form);
+
+		try {
+			const res = await fetch("/api/users", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					email: formData.get("email"),
+					username: formData.get("username"),
+					firstName: formData.get("firstName") || null,
+					lastName: formData.get("lastName") || null,
+					password: formData.get("password"),
+				}),
+			});
+
+			const json = await res.json();
+
+			if (res.ok) return navigate({ to: "/login", search: { redirect: "/" } });
+
+			const { errors } = json;
+			const errorMessages = errors.map((err: ServerSideError) => err.msg);
+			setErrors(errorMessages);
+		} catch (_err) {
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	return (
 		<Container my={{ base: "xl", xs: "5rem" }}>
@@ -56,7 +91,7 @@ function SignUpForm() {
 							<TextInput
 								type="email"
 								name="email"
-								placeholder="Email address"
+								placeholder="Email"
 								required
 							/>
 							<SimpleGrid cols={2}>
@@ -69,12 +104,14 @@ function SignUpForm() {
 								placeholder="Password"
 								required
 							/>
-							{error && (
-								<Text fz="sm" c="#FF3399">
-									{error}
-								</Text>
+							{Array.isArray(errors) && errors.length && (
+								<List fz="sm" c="#FF3399" listStyleType="disc">
+									{errors.map((err) => (
+										<List.Item key={err}>{err}</List.Item>
+									))}
+								</List>
 							)}
-							<Button type="submit" size="md" loading={isLoading}>
+							<Button type="submit" size="md" loading={isLoading} mt="md">
 								Sign up for free
 							</Button>
 						</Stack>
