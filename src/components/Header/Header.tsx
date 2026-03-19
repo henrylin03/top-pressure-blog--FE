@@ -1,10 +1,10 @@
-import { Box, Group } from "@mantine/core";
+import LoginLink from "@components/LoginLink";
+import { Box, Button, Group } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import type { AuthState } from "@/contexts/auth";
 import logo from "/images/logo.png";
 import styles from "./Header.module.css";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
-import SignInButton from "./SignInButton";
 
 type Props = Omit<AuthState, "login">;
 
@@ -27,7 +27,11 @@ const Header = ({ isAuthenticated, user, logout }: Props) => (
 				logout={logout}
 			/>
 		) : (
-			<SignInButton />
+			<LoginLink>
+				<Button variant="filled" size="md">
+					Sign in
+				</Button>
+			</LoginLink>
 		)}
 	</Box>
 );

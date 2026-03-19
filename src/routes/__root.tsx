@@ -1,17 +1,12 @@
 import Footer from "@components/Footer/Footer";
 import Header from "@components/Header/Header";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import type { AuthState } from "@/contexts/auth";
+import { useAuth } from "@/contexts/auth";
 import { SOCIALS_LINKS } from "@/data/socialsLinks";
 
-interface RouterContext {
-	auth: AuthState;
-}
-
 const RootLayout = () => {
-	const { auth } = Route.useRouteContext();
-	const { isAuthenticated, user, logout } = auth;
+	const { isAuthenticated, user, logout } = useAuth();
 
 	return (
 		<>
@@ -26,6 +21,6 @@ const RootLayout = () => {
 	);
 };
 
-export const Route = createRootRouteWithContext<RouterContext>()({
+export const Route = createRootRoute({
 	component: RootLayout,
 });

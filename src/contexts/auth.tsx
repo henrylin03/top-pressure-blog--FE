@@ -14,9 +14,9 @@ export type AuthState = {
 	logout: () => void;
 };
 
-const JWT_LOCALSTORAGE_KEY = "jwt";
-
 const AuthContext = createContext<AuthState | undefined>(undefined);
+
+export const JWT_LOCALSTORAGE_KEY = "jwt";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
