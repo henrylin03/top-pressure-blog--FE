@@ -1,39 +1,36 @@
-import LoginLink from "@components/LoginLink";
-import { Box, Button, Group } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
+import { Box, Group } from "@mantine/core";
+import { Link, useLocation } from "@tanstack/react-router";
 import type { AuthState } from "@/contexts/auth";
+import type { User } from "@/types/user";
 import logo from "/images/logo.png";
 import styles from "./Header.module.css";
-import ProfileMenu from "./ProfileMenu/ProfileMenu";
+import HeaderRight from "./HeaderRight";
 
-type Props = Omit<AuthState, "login">;
+const AUTH_PAGE_PATHS = ["/login", "/signup"];
 
-const Header = ({ isAuthenticated, user, logout }: Props) => (
-	<Box component="header" className={styles.header}>
-		<Group
-			gap="md"
-			h="100%"
-			renderRoot={(props) => <Link to="/" aria-label="Go home" {...props} />}
-			className={styles.link}
-		>
-			<img src={logo} loading="eager" alt="logo" width="32" height="32" />
-			<h1 className={styles.title}>Top Pressure</h1>
-		</Group>
+interface Props {
+	logout: AuthState["logout"];
+	user: User;
+}
+const Header = ({ user, logout }: Props) => {
+	const pathname = useLocation({ select: (location) => location.pathname });
+	const isAuthPage = AUTH_PAGE_PATHS.includes(pathname);
 
-		{isAuthenticated && user ? (
-			<ProfileMenu
-				username={user.username}
-				email={user.email}
-				logout={logout}
-			/>
-		) : (
-			<LoginLink>
-				<Button variant="filled" size="md">
-					Sign in
-				</Button>
-			</LoginLink>
-		)}
-	</Box>
-);
+	return (
+		<Box component="header" className={styles.header}>
+			<Group
+				gap="md"
+				h="100%"
+				renderRoot={(props) => <Link to="/" aria-label="Go home" {...props} />}
+				className={styles.link}
+			>
+				<img src={logo} loading="eager" alt="logo" width="32" height="32" />
+				<h1 className={styles.title}>Top Pressure</h1>
+			</Group>
+
+			<HeaderRight user={user} isAuthPage={isAuthPage} logout={logout} />
+		</Box>
+	);
+};
 
 export default Header;
