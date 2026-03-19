@@ -1,4 +1,5 @@
 import { Container } from "@mantine/core";
+import { useDocumentTitle } from "@mantine/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import PostBody from "@/components/post/Body";
@@ -12,10 +13,17 @@ export const Route = createFileRoute("/posts/$postId")({
 	component: PostPage,
 });
 
+const DEFAULT_DOCUMENT_TITLE =
+	"BJJ, Wrestling, Judo | Top Pressure Blog for Submission Grapplers";
+const DOCUMENT_TITLE_SUFFIX = "Top Pressure Blog for Submission Grapplers";
+
 function PostPage() {
 	const [post, setPost] = useState<Post | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const { postId } = Route.useParams();
+	useDocumentTitle(
+		post ? `${post.title} | ${DOCUMENT_TITLE_SUFFIX}` : DEFAULT_DOCUMENT_TITLE,
+	);
 
 	const fetchPost = useCallback(async (postId: string, jwt: string) => {
 		try {
@@ -74,7 +82,6 @@ function PostPage() {
 				/>
 				<PostBody lede={lede} text={text} />
 			</Container>
-
 			<Container component="section" className={styles.section}>
 				<CommentsSection
 					comments={comments}
