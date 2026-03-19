@@ -2,7 +2,7 @@ import { Container } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import PostBody from "@/components/post/Body";
-import CommentsSection from "@/components/post/CommentsSection";
+import CommentsSection from "@/components/post/comments/CommentsSection";
 import PostHeader from "@/components/post/Header";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import styles from "@/styles/Post.module.css";
