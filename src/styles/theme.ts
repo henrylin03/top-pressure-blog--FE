@@ -11,4 +11,8 @@ export const theme = createTheme({
 	black: COLOURS.black,
 	defaultRadius: "md",
 	fontFamily: "Outfit, Calibri, sans-serif",
+	headings: {
+		fontWeight: "400",
+		textWrap: "balance",
+	},
 });
