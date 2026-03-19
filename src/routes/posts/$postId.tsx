@@ -18,10 +18,10 @@ function PostPage() {
 	const { postId } = Route.useParams();
 	const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
 
-	const fetchPost = useCallback(async (postId: string, token: string) => {
+	const fetchPost = useCallback(async (postId: string, jwt: string) => {
 		try {
 			const res = await fetch(`/api/posts/${postId}`, {
-				headers: { Authorization: token ? `Bearer ${token}` : "" },
+				headers: { Authorization: jwt ? `Bearer ${jwt}` : "" },
 			});
 			if (!res.ok) throw new Error("404: post not found.");
 
@@ -75,7 +75,11 @@ function PostPage() {
 			</Container>
 
 			<Container component="section" className={styles.section}>
-				<CommentsSection comments={comments} postId={postId} />
+				<CommentsSection
+					comments={comments}
+					postId={postId}
+					fetchPost={fetchPost}
+				/>
 			</Container>
 		</Container>
 	);

@@ -8,11 +8,13 @@ import type { User } from "@/types/user";
 interface AuthenticatedCommentInputProps {
 	username: User["username"];
 	postId: Post["id"];
+	fetchPost: (postId: string, jwt: string) => Promise<void>;
 }
 
 const AuthenticatedCommentInput = ({
 	username,
 	postId,
+	fetchPost,
 }: AuthenticatedCommentInputProps) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,7 +22,7 @@ const AuthenticatedCommentInput = ({
 		const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
 
 		try {
-			const _res = await fetch(`/api/posts/${postId}/comments`, {
+			await fetch(`/api/posts/${postId}/comments`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -43,8 +45,13 @@ const AuthenticatedCommentInput = ({
 
 		setIsSubmitting(true);
 		try {
+			const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
+			if (!jwt)
+				throw new Error("User cannot post comment if not authenticated.");
+
 			await sendComment(commentText.toString());
 			formElement.reset();
+			await fetchPost(postId, jwt);
 		} catch (error) {
 			console.error(error);
 		} finally {

@@ -9,9 +9,14 @@ import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
 interface CommentsSectionProps {
 	comments: CommentType[];
 	postId: Post["id"];
+	fetchPost: (postId: string, jwt: string) => Promise<void>;
 }
 
-const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
+const CommentsSection = ({
+	comments,
+	postId,
+	fetchPost,
+}: CommentsSectionProps) => {
 	const { isAuthenticated, user } = useAuth();
 
 	return (
@@ -21,7 +26,11 @@ const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
 			</Title>
 
 			{isAuthenticated && user ? (
-				<AuthenticatedCommentInput username={user.username} postId={postId} />
+				<AuthenticatedCommentInput
+					username={user.username}
+					postId={postId}
+					fetchPost={fetchPost}
+				/>
 			) : (
 				<UnauthenticatedCommentInput />
 			)}
