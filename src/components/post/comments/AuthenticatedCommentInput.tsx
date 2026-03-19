@@ -56,7 +56,7 @@ const AuthenticatedCommentInput = ({
 		<Stack component="article">
 			<Group gap="xs">
 				<UserAvatar username={username} size="sm" />
-				<Text c="dark.6">{username}</Text>
+				<Text c="dark.9">{username}</Text>
 			</Group>
 			<form onSubmit={handleSubmit}>
 				<Stack>
