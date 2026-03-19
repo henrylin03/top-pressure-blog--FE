@@ -9,7 +9,7 @@
   border-radius: var(--mantine-radius-lg);
   width: 100%;
   padding: 3rem 3.5rem;
-  box-shadow: var(--mantine-shadow-xs);
+  box-shadow: var(--mantine-shadow-sm);
 }
 
 .bodyText {
