@@ -1,14 +1,14 @@
 import { Divider, Stack, Title } from "@mantine/core";
 import { useAuth } from "@/contexts/auth";
 import type { Comment as CommentType } from "@/types/comment";
-import type { PublishedPost } from "@/types/post";
+import type { Post } from "@/types/post";
 import AuthenticatedCommentInput from "./AuthenticatedCommentInput";
 import Comment from "./Comment";
 import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
 
 interface CommentsSectionProps {
 	comments: CommentType[];
-	postId: PublishedPost["id"];
+	postId: Post["id"];
 }
 
 const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {

@@ -6,16 +6,14 @@ import CommentsSection from "@/components/post/comments/CommentsSection";
 import PostHeader from "@/components/post/Header";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import styles from "@/styles/Post.module.css";
-import type { Comment } from "@/types/comment";
-import type { PublishedPost } from "@/types/post";
+import type { Post } from "@/types/post";
 
 export const Route = createFileRoute("/posts/$postId")({
 	component: PostPage,
 });
 
 function PostPage() {
-	const [post, setPost] = useState<PublishedPost | null>(null);
-	const [comments, setComments] = useState<Comment[]>([]);
+	const [post, setPost] = useState<Post | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const { postId } = Route.useParams();
 	const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
@@ -37,23 +35,9 @@ function PostPage() {
 		}
 	}, []);
 
-	const fetchComments = useCallback(async (postId: string) => {
-		try {
-			const res = await fetch(`/api/posts/${postId}/comments`);
-			if (!res.ok) throw new Error("Error retrieving comments from post");
-			const { comments } = await res.json();
-			setComments(comments);
-		} catch (err) {
-			console.error(err);
-		} finally {
-			setIsLoading(false);
-		}
-	}, []);
-
 	useEffect(() => {
 		fetchPost(postId, token);
-		fetchComments(postId);
-	}, [token, postId, fetchPost, fetchComments]);
+	}, [token, postId, fetchPost]);
 
 	if (isLoading) return <Container>Loading...</Container>;
 
@@ -72,6 +56,7 @@ function PostPage() {
 		publishedAt,
 		author,
 		lastModifiedAt,
+		comments,
 	} = post;
 
 	return (

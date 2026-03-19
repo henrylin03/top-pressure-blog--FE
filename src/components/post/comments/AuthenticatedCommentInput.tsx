@@ -2,12 +2,12 @@ import { Button, Group, Stack, Text, Textarea } from "@mantine/core";
 import { useState } from "react";
 import UserAvatar from "@/components/UserAvatar";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
-import type { PublishedPost } from "@/types/post";
+import type { Post } from "@/types/post";
 import type { User } from "@/types/user";
 
 interface AuthenticatedCommentInputProps {
 	username: User["username"];
-	postId: PublishedPost["id"];
+	postId: Post["id"];
 }
 
 const AuthenticatedCommentInput = ({

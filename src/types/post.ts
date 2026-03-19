@@ -1,4 +1,6 @@
-export type PublishedPost = {
+import type { Comment } from "./comment";
+
+export type Post = {
 	id: string;
 	author: string;
 	lastModifiedAt: Date;
@@ -7,9 +9,10 @@ export type PublishedPost = {
 	lede: string;
 	text: string;
 	timeToReadInMinutes: number;
+	comments: Comment[];
 };
 
 export type PublishedPostPreview = Pick<
-	PublishedPost,
+	Post,
 	"id" | "publishedAt" | "title" | "lede"
 >;

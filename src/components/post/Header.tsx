@@ -1,11 +1,11 @@
 import { Anchor, Group, Stack, Text, Title } from "@mantine/core";
 import { IconBook } from "@tabler/icons-react";
 import dayjs from "dayjs";
-import type { PublishedPost } from "@/types/post";
+import type { Post } from "@/types/post";
 
 interface Props {
 	postDetails: Pick<
-		PublishedPost,
+		Post,
 		| "author"
 		| "lastModifiedAt"
 		| "publishedAt"

@@ -1,10 +1,10 @@
 import { Divider, Text } from "@mantine/core";
 import styles from "@/styles/Post.module.css";
-import type { PublishedPost } from "@/types/post";
+import type { Post } from "@/types/post";
 
 interface Props {
-	lede: PublishedPost["lede"];
-	text: PublishedPost["text"];
+	lede: Post["lede"];
+	text: Post["text"];
 }
 
 const PostBody = ({ lede, text }: Props) => (
