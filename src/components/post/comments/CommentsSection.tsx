@@ -21,7 +21,7 @@ const CommentsSection = ({
 
 	return (
 		<>
-			<Title order={3} fw={400} mb="lg">
+			<Title order={3} fw={500} mb="lg">
 				Latest comments ({comments.length})
 			</Title>
 

@@ -32,7 +32,7 @@ const PostHeader = ({ postDetails }: Props) => {
 				<IconBook size={16} strokeWidth={1} />
 				<span>{timeToReadRounded} min read</span>
 			</Group>
-			<Title order={2} size="h1" fw={400}>
+			<Title order={2} size="h1" fw={500}>
 				{postDetails.title}
 			</Title>
 
