@@ -1,4 +1,5 @@
 import type { Post } from "./post";
+import type { User } from "./user";
 
 export type Comment = {
 	id: string;
@@ -8,5 +9,5 @@ export type Comment = {
 	lastEditedAt?: boolean;
 	postId: Post["id"];
 	authorId: string;
-	authorUsername: string;
+	author: User;
 };
