@@ -2,6 +2,7 @@ import Footer from "@components/Footer/Footer";
 import Header from "@components/Header/Header";
 import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import ErrorComponent from "@/components/ErrorComponent";
 import { useAuth } from "@/contexts/auth";
 import { SOCIALS_LINKS } from "@/data/socialsLinks";
 
@@ -33,4 +34,5 @@ export const Route = createRootRoute({
 			},
 		],
 	}),
+	notFoundComponent: ErrorComponent,
 });

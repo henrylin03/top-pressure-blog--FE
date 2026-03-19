@@ -1,6 +1,6 @@
 import { Container } from "@mantine/core";
 import { useDocumentTitle } from "@mantine/hooks";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import PostBody from "@/components/post/Body";
 import CommentsSection from "@/components/post/comments/CommentsSection";
@@ -49,12 +49,7 @@ function PostPage() {
 
 	if (isLoading) return <Container>Loading...</Container>;
 
-	if (!post)
-		return (
-			<Container>
-				An error has occurred when fetching blog post. Please refresh the page.
-			</Container>
-		);
+	if (!post) throw notFound();
 
 	const {
 		title,
