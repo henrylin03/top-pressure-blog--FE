@@ -85,6 +85,7 @@ const AuthenticatedCommentInput = ({
 						disabled={isSubmitting}
 						required
 						error={hasErrors}
+						onChange={() => setErrors(null)}
 					/>
 
 					{hasErrors && (
