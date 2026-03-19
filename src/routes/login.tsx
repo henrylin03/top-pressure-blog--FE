@@ -1,4 +1,5 @@
 import {
+	Anchor,
 	Button,
 	Card,
 	Container,
@@ -109,7 +110,16 @@ function LoginPage() {
 					</form>
 
 					<Text fz="xs" c="dimmed">
-						Don't have an account? <Link to="/signup">Sign up</Link>
+						Don't have an account?{" "}
+						<Anchor
+							component={Link}
+							to="/signup"
+							fz="xs"
+							underline="not-hover"
+							c="dimmed"
+						>
+							Sign up
+						</Anchor>
 					</Text>
 				</Stack>
 			</Card>
