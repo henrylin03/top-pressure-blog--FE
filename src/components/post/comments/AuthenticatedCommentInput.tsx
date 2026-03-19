@@ -36,14 +36,15 @@ const AuthenticatedCommentInput = ({
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const formDataObject = new FormData(e.currentTarget);
+		const formElement = e.currentTarget;
+		const formDataObject = new FormData(formElement);
 		const commentText = formDataObject.get("text");
-		if (!commentText || !commentText.toString().trim())
-			return e.preventDefault();
+		if (!commentText || !commentText.toString().trim()) return;
 
 		setIsSubmitting(true);
 		try {
 			await sendComment(commentText.toString());
+			formElement.reset();
 		} catch (error) {
 			console.error(error);
 		} finally {
