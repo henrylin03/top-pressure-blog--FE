@@ -10,18 +10,15 @@ const RootLayout = () => {
 
 	return (
 		<>
-			<head>
-				<HeadContent />
-			</head>
-			<body>
-				<Header isAuthenticated={isAuthenticated} user={user} logout={logout} />
-				<main>
-					<Outlet />
-				</main>
-				<Footer links={SOCIALS_LINKS} />
+			<HeadContent />
 
-				<TanStackRouterDevtools />
-			</body>
+			<Header isAuthenticated={isAuthenticated} user={user} logout={logout} />
+			<main>
+				<Outlet />
+			</main>
+			<Footer links={SOCIALS_LINKS} />
+
+			<TanStackRouterDevtools />
 		</>
 	);
 };
