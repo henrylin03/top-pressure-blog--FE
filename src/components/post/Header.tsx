@@ -2,8 +2,37 @@ import { Anchor, Group, Stack, Text, Title } from "@mantine/core";
 import { IconBook } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import type { Post } from "@/types/post";
+import type { User } from "@/types/user";
 
-interface Props {
+const Author = ({ postAuthor }: { postAuthor: User }) => {
+	let author = "";
+	if (!postAuthor.firstName && !postAuthor.lastName)
+		author = postAuthor.username;
+	else {
+		if (postAuthor.firstName) author += postAuthor.firstName;
+		if (postAuthor.lastName) author += ` ${postAuthor.lastName}`;
+	}
+	author = author.trim();
+
+	return postAuthor.website ? (
+		<Anchor
+			href={postAuthor.website}
+			underline="not-hover"
+			fw="600"
+			target="_blank"
+			rel="noreferrer"
+			aria-label="author"
+		>
+			{author}
+		</Anchor>
+	) : (
+		<Text fw="600" c="black" aria-label="author">
+			{author}
+		</Text>
+	);
+};
+
+interface PostHeaderProps {
 	postDetails: Pick<
 		Post,
 		| "author"
@@ -14,7 +43,7 @@ interface Props {
 	>;
 }
 
-const PostHeader = ({ postDetails }: Props) => {
+const PostHeader = ({ postDetails }: PostHeaderProps) => {
 	const DATE_FORMAT = "D MMMM YYYY";
 	const { lastModifiedAt, publishedAt } = postDetails;
 
@@ -37,17 +66,10 @@ const PostHeader = ({ postDetails }: Props) => {
 			</Title>
 
 			<Stack mt="md" gap="xs">
-				<Text c="dark.4">
-					{dates.published} by{" "}
-					<Anchor
-						href="https://henrylin.io"
-						target="_blank"
-						underline="not-hover"
-						fw="bold"
-					>
-						Henry Lin
-					</Anchor>
-				</Text>
+				<Group gap={4}>
+					<Text c="dark.4">{dates.published} by </Text>
+					<Author postAuthor={postDetails.author} />
+				</Group>
 				<Group>
 					{isUpdatedPost && (
 						<Text fs="italic" c="dark.4">

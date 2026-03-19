@@ -44,7 +44,6 @@ function PostPage() {
 
 	useEffect(() => {
 		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
-
 		fetchPost(postId, token);
 	}, [postId, fetchPost]);
 

@@ -3,4 +3,7 @@ export type User = {
 	username: string;
 	email: string;
 	isAuthor: boolean;
+	firstName?: string;
+	lastName?: string;
+	website?: string;
 };
