@@ -90,7 +90,7 @@ function PostPage() {
 			</Container>
 
 			<Container component="section" className={styles.section}>
-				<CommentsSection comments={comments} />
+				<CommentsSection comments={comments} postId={postId} />
 			</Container>
 		</Container>
 	);

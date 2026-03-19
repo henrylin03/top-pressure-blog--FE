@@ -1,14 +1,16 @@
 import { Title } from "@mantine/core";
 import { useAuth } from "@/contexts/auth";
 import type { Comment } from "@/types/comment";
+import type { PublishedPost } from "@/types/post";
 import AuthenticatedCommentInput from "./AuthenticatedCommentInput";
 import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
 
 interface CommentsSectionProps {
 	comments: Comment[];
+	postId: PublishedPost["id"];
 }
 
-const CommentsSection = ({ comments }: CommentsSectionProps) => {
+const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
 	const { isAuthenticated, user } = useAuth();
 
 	return (
@@ -18,7 +20,7 @@ const CommentsSection = ({ comments }: CommentsSectionProps) => {
 			</Title>
 
 			{isAuthenticated && user ? (
-				<AuthenticatedCommentInput username={user.username} />
+				<AuthenticatedCommentInput username={user.username} postId={postId} />
 			) : (
 				<UnauthenticatedCommentInput />
 			)}
