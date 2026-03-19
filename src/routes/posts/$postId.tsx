@@ -16,7 +16,6 @@ function PostPage() {
 	const [post, setPost] = useState<Post | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const { postId } = Route.useParams();
-	const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
 
 	const fetchPost = useCallback(async (postId: string, jwt: string) => {
 		try {
@@ -36,8 +35,10 @@ function PostPage() {
 	}, []);
 
 	useEffect(() => {
+		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
+
 		fetchPost(postId, token);
-	}, [token, postId, fetchPost]);
+	}, [postId, fetchPost]);
 
 	if (isLoading) return <Container>Loading...</Container>;
 
