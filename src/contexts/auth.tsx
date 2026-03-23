@@ -23,7 +23,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const validateJwt = useCallback(async (token: string) => {
 		const res = await fetch(
-			`${import.meta.env.VITE_API_URL}/api/validate-jwt`,
+			`${import.meta.env.VITE_API_URL}/api/v1/validate-jwt`,
 			{
 				headers: { Authorization: `Bearer ${token}` },
 			},
@@ -49,11 +49,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		);
 
 	const login = async (usernameOrEmail: string, password: string) => {
-		const loginRes = await fetch("/api/login", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ usernameOrEmail, password }),
-		});
+		const loginRes = await fetch(
+			`${import.meta.env.VITE_API_URL}/api/v1/login`,
+			{
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ usernameOrEmail, password }),
+			},
+		);
 
 		if (!loginRes.ok) throw new Error("Authentication failed");
 		const { token } = await loginRes.json();

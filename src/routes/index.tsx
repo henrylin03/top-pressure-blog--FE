@@ -9,7 +9,7 @@ const Index = () => {
 	const [posts, setPosts] = useState<PublishedPostPreview[]>([]);
 
 	useEffect(() => {
-		fetch("/api/posts")
+		fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts`)
 			.then((res) => res.json())
 			.then((data) => setPosts(data.posts));
 	}, []);

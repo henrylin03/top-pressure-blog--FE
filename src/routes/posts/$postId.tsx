@@ -15,7 +15,7 @@ const DOCUMENT_TITLE_SUFFIX = "Top Pressure Blog for Submission Grapplers";
 async function fetchPost(postId: string): Promise<Post> {
 	const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
 	const res = await fetch(
-		`${import.meta.env.VITE_API_URL}/api/posts/${postId}`,
+		`${import.meta.env.VITE_API_URL}/api/v1/posts/${postId}`,
 		{
 			headers: { Authorization: jwt ? `Bearer ${jwt}` : "" },
 		},

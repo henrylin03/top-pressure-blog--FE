@@ -30,7 +30,7 @@ const AuthenticatedCommentInput = ({
 				throw new Error("User cannot post comment if not authenticated.");
 
 			const res = await fetch(
-				`${import.meta.env.VITE_API_URL}/api/posts/${postId}/comments`,
+				`${import.meta.env.VITE_API_URL}/api/v1/posts/${postId}/comments`,
 				{
 					method: "POST",
 					headers: {
