@@ -1,7 +1,6 @@
 import { Box, Group } from "@mantine/core";
 import { Link, useLocation } from "@tanstack/react-router";
 import type { AuthState } from "@/contexts/auth";
-import type { User } from "@/types/user";
 import logo from "/images/logo.png";
 import styles from "./Header.module.css";
 import HeaderRight from "./HeaderRight";
@@ -10,7 +9,7 @@ const AUTH_PAGE_PATHS = ["/login", "/signup"];
 
 interface Props {
 	logout: AuthState["logout"];
-	user: User;
+	user: AuthState["user"];
 }
 const Header = ({ user, logout }: Props) => {
 	const pathname = useLocation({ select: (location) => location.pathname });

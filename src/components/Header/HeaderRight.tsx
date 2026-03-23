@@ -1,11 +1,10 @@
 import LoginLink from "@components/LoginLink";
 import { Button } from "@mantine/core";
 import type { AuthState } from "@/contexts/auth";
-import type { User } from "@/types/user";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
 interface Props {
-	user: User;
+	user: AuthState["user"];
 	isAuthPage: boolean;
 	logout: AuthState["logout"];
 }

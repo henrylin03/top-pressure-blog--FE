@@ -8,7 +8,6 @@ import {
 import type { User } from "@/types/user";
 
 export type AuthState = {
-	isAuthenticated: boolean;
 	user: User | null;
 	login: (usernameOrEmail: string, password: string) => Promise<void>;
 	logout: () => void;
@@ -20,7 +19,6 @@ export const JWT_LOCALSTORAGE_KEY = "jwt";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const validateJwt = useCallback(async (token: string) => {
@@ -35,7 +33,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		const { user } = await res.json();
 		if (!user) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
 		setUser(user);
-		setIsAuthenticated(true);
 	}, []);
 
 	useEffect(() => {
@@ -67,12 +64,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const logout = () => {
 		setUser(null);
-		setIsAuthenticated(false);
 		localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
 	};
 
 	return (
-		<AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+		<AuthContext.Provider value={{ user, login, logout }}>
 			{children}
 		</AuthContext.Provider>
 	);

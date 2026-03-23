@@ -7,13 +7,13 @@ import { useAuth } from "@/contexts/auth";
 import { SOCIALS_LINKS } from "@/data/socialsLinks";
 
 const RootLayout = () => {
-	const { isAuthenticated, user, logout } = useAuth();
+	const { user, logout } = useAuth();
 
 	return (
 		<>
 			<HeadContent />
 
-			<Header isAuthenticated={isAuthenticated} user={user} logout={logout} />
+			<Header user={user} logout={logout} />
 			<main>
 				<Outlet />
 			</main>

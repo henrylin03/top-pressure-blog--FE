@@ -12,7 +12,7 @@ interface CommentsSectionProps {
 }
 
 const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
-	const { isAuthenticated, user } = useAuth();
+	const { user } = useAuth();
 
 	return (
 		<>
@@ -20,7 +20,7 @@ const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
 				Latest comments ({comments.length})
 			</Title>
 
-			{isAuthenticated && user ? (
+			{user ? (
 				<AuthenticatedCommentInput username={user.username} postId={postId} />
 			) : (
 				<UnauthenticatedCommentInput />
