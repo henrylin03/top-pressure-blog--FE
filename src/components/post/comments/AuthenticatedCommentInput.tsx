@@ -29,14 +29,17 @@ const AuthenticatedCommentInput = ({
 			if (!jwt)
 				throw new Error("User cannot post comment if not authenticated.");
 
-			const res = await fetch(`/api/posts/${postId}/comments`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${jwt}`,
+			const res = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/posts/${postId}/comments`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${jwt}`,
+					},
+					body: JSON.stringify({ text: commentText }),
 				},
-				body: JSON.stringify({ text: commentText }),
-			});
+			);
 
 			if (res.ok) return true;
 

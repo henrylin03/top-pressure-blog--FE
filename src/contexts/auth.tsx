@@ -24,9 +24,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const validateJwt = useCallback(async (token: string) => {
-		const res = await fetch("/api/validate-jwt", {
-			headers: { Authorization: `Bearer ${token}` },
-		});
+		const res = await fetch(
+			`${import.meta.env.VITE_API_URL}/api/validate-jwt`,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			},
+		);
 		if (!res.ok) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
 
 		const { user } = await res.json();
