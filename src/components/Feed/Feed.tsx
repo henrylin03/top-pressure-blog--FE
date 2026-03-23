@@ -1,43 +1,34 @@
 import PreviewCard from "@components/PreviewCard/PreviewCard";
-import { Pagination, Stack } from "@mantine/core";
-import { useState } from "react";
-import type { PublishedPostPreview } from "@/types/post";
+import { Stack, Text } from "@mantine/core";
+import { useFetchPosts } from "@/hooks/useFetchPosts";
+import PreviewCardLoading from "../PreviewCard/PreviewCardLoading";
 import styles from "./Feed.module.css";
 
-interface Props {
-	posts: PublishedPostPreview[];
-}
+const Feed = () => {
+	const { posts, isLoading, error } = useFetchPosts();
 
-function chunk<T>(array: T[], size: number): T[][] {
-	if (!array.length) return [];
-	const head = array.slice(0, size);
-	const tail = array.slice(size);
-	return [head, ...chunk(tail, size)];
-}
+	if (isLoading)
+		return (
+			<Stack component="section" my="xl" gap="xl">
+				<PreviewCardLoading />
+				<PreviewCardLoading />
+				<PreviewCardLoading />
+				<PreviewCardLoading />
+				<PreviewCardLoading />
+			</Stack>
+		);
 
-const Feed = ({ posts }: Props) => {
-	const [activePage, setPage] = useState(1);
-	const MAX_ITEMS_ON_SINGLE_PAGE = 5;
-
-	const chunkedPosts = chunk(posts, MAX_ITEMS_ON_SINGLE_PAGE);
+	if (error) return <Text c="red">Error: {error} </Text>;
 
 	return (
 		<Stack component="section" my="xl" gap="xl">
 			<Stack component="ul" className={styles.list}>
-				{chunkedPosts[activePage - 1].map((post) => (
+				{posts.map((post) => (
 					<li key={post.id}>
 						<PreviewCard post={post} />
 					</li>
 				))}
 			</Stack>
-
-			<Pagination
-				total={Math.ceil(posts.length / MAX_ITEMS_ON_SINGLE_PAGE)}
-				value={activePage}
-				onChange={setPage}
-				mx="auto"
-				mt="xl"
-			/>
 		</Stack>
 	);
 };
