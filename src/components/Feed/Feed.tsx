@@ -13,8 +13,6 @@ const Feed = () => {
 				<PreviewCardLoading />
 				<PreviewCardLoading />
 				<PreviewCardLoading />
-				<PreviewCardLoading />
-				<PreviewCardLoading />
 			</Stack>
 		);
 

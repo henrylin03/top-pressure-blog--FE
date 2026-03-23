@@ -3,7 +3,7 @@ import { Container, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 
 const Index = () => (
-	<Container my="xl" h="100%">
+	<Container my="3rem">
 		<header>
 			<Title order={1} fz={{ base: "2.5rem", sm: "2.75rem" }} mb="sm">
 				Top Pressure Blog
