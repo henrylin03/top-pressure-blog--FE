@@ -7,6 +7,7 @@ import {
 	Stack,
 	Text,
 	TextInput,
+	Title,
 } from "@mantine/core";
 import {
 	createFileRoute,
@@ -55,7 +56,7 @@ function LoginPage() {
 	};
 
 	return (
-		<Container mt="5rem">
+		<Container my={{ base: "xl", sm: "5rem" }}>
 			<Card
 				shadow="sm"
 				maw="24rem"
@@ -75,7 +76,9 @@ function LoginPage() {
 								loading="eager"
 							/>
 						</Link>
-						<h2 className={styles.heading}>Welcome back</h2>
+						<Title order={2} fz="h1" my="sm">
+							Welcome back
+						</Title>
 					</Stack>
 
 					<form className={styles.form} onSubmit={handleSubmit}>

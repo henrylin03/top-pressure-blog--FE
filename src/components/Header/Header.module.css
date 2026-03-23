@@ -9,16 +9,3 @@
 .link {
   color: var(--mantine-color-black);
 }
-
-.title {
-  font-weight: 400;
-  font-size: x-large;
-  margin-bottom: 0.25rem;
-}
-
-/* MEDIA QUERIES */
-@media (max-width: $mantine-breakpoint-xs) {
-  .title {
-    display: none;
-  }
-}

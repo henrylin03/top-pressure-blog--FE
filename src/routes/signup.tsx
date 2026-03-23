@@ -80,8 +80,8 @@ function SignUpForm() {
 								loading="eager"
 							/>
 						</Link>
-						<Title order={2} className={styles.heading}>
-							Sign Up For Free
+						<Title order={2} fz="h1" my={4}>
+							Sign up for free
 						</Title>
 					</Stack>
 

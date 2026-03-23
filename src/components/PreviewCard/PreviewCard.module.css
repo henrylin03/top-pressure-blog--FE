@@ -1,7 +1,7 @@
 .card {
   --lines-to-clamp: 2;
   gap: var(--mantine-spacing-lg);
-  padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
+  padding: var(--mantine-spacing-xl);
   position: relative;
 
   &:hover {
@@ -55,11 +55,15 @@
 @media (max-width: $mantine-breakpoint-sm) {
   .card {
     gap: var(--mantine-spacing-sm);
-    padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
+    padding: var(--mantine-spacing-lg);
+  }
+
+  .postedDate {
+    font-size: var(--mantine-font-size-sm);
   }
 
   .heading {
-    font-size: 2rem;
+    font-size: 1.75rem;
     line-height: 1.25;
   }
 }

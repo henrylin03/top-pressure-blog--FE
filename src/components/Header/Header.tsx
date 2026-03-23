@@ -1,4 +1,4 @@
-import { Box, Group } from "@mantine/core";
+import { Box, Group, Title } from "@mantine/core";
 import { Link, useLocation } from "@tanstack/react-router";
 import type { AuthState } from "@/contexts/auth";
 import logo from "/images/logo.png";
@@ -7,10 +7,7 @@ import HeaderRight from "./HeaderRight";
 
 const AUTH_PAGE_PATHS = ["/login", "/signup"];
 
-interface Props {
-	logout: AuthState["logout"];
-	user: AuthState["user"];
-}
+type Props = Omit<AuthState, "login">;
 const Header = ({ user, logout }: Props) => {
 	const pathname = useLocation({ select: (location) => location.pathname });
 	const isAuthPage = AUTH_PAGE_PATHS.includes(pathname);
@@ -24,7 +21,9 @@ const Header = ({ user, logout }: Props) => {
 				className={styles.link}
 			>
 				<img src={logo} loading="eager" alt="logo" width="32" height="32" />
-				<h1 className={styles.title}>Top Pressure</h1>
+				<Title order={1} fz="h2" mb="2" visibleFrom="xs">
+					Top Pressure
+				</Title>
 			</Group>
 
 			<HeaderRight user={user} isAuthPage={isAuthPage} logout={logout} />
