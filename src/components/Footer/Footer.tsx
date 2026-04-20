@@ -1,5 +1,5 @@
 import { ActionIcon, Group } from "@mantine/core";
-import type { IconLink } from "src/data/socialsLinks";
+import type { IconLink } from "@/data/socialsLinks";
 import logo from "/images/logo.png";
 import styles from "./Footer.module.css";
 
