@@ -1,0 +1,11 @@
+.header {
+  box-shadow: var(--mantine-shadow-xs);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link {
+  color: var(--mantine-color-black);
+}
