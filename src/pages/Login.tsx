@@ -64,14 +64,16 @@ export default function LoginPage() {
 			>
 				<Stack align="center" gap="xl">
 					<Stack component="header" align="center" gap="xs">
-						<Image
-							w={60}
-							h="auto"
-							fit="contain"
-							src={logoImg}
-							loading="eager"
-							alt="Logo of Top Pressure Blog"
-						/>
+						<Link to="/" aria-label="Return to home page of Top Pressure blog">
+							<Image
+								w={60}
+								h="auto"
+								fit="contain"
+								src={logoImg}
+								loading="eager"
+								alt="Logo of Top Pressure Blog"
+							/>
+						</Link>
 						<Title order={2} fz="h1" c="dark.6" ta="center">
 							Welcome back!
 						</Title>
