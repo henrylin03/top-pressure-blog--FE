@@ -1,4 +1,5 @@
 import {
+	Anchor,
 	Button,
 	Card,
 	Container,
@@ -11,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
+import { Link } from "react-router";
 import logoImg from "/images/logo.png";
 
 export default function LoginPage() {
@@ -107,6 +109,19 @@ export default function LoginPage() {
 							</li>
 						</Stack>
 					</form>
+
+					<Text fz="xs" c="dimmed">
+						Don't have an account?{" "}
+						<Anchor
+							component={Link}
+							to="/signup"
+							fz="xs"
+							underline="not-hover"
+							c="dimmed"
+						>
+							Sign up
+						</Anchor>
+					</Text>
 				</Stack>
 			</Card>
 		</Container>
