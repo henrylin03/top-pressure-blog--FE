@@ -21,6 +21,9 @@ export const useFetchPost = (postId: string) => {
 					},
 				});
 				const { post } = await res.json();
+				console.log("post in hook:", post);
+				if (!post) throw new Error("Post not found");
+
 				setPost(post);
 			} catch (error) {
 				error instanceof Error

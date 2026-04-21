@@ -2,6 +2,7 @@ import { Divider, Stack, Title } from "@mantine/core";
 import { useAuth } from "@/contexts/auth";
 import type { Comment as CommentType } from "@/types/comment";
 import type { Post } from "@/types/post";
+import styles from "../Post.module.css";
 import AuthenticatedCommentInput from "./AuthenticatedCommentInput";
 import Comment from "./Comment";
 import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
@@ -16,7 +17,7 @@ const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
 
 	return (
 		<>
-			<Title order={3} fw={500} mb="lg">
+			<Title order={3} fw={400} mb="lg" className={styles.heading}>
 				Latest comments ({comments.length})
 			</Title>
 
