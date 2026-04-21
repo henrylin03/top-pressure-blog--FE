@@ -5,6 +5,7 @@ import Header from "@components/Header";
 import { Outlet } from "react-router";
 import { SOCIALS_LINKS } from "@/data/socialsLinks";
 import Footer from "./components/Footer";
+import "@/styles/global.css";
 
 const App = () => (
 	<MantineProvider theme={theme}>
