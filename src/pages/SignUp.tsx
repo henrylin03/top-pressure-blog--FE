@@ -14,6 +14,7 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { useAuth } from "@/contexts/auth";
 import type { ServerSideError } from "@/types/error";
 import logoImg from "/images/logo.png";
 
@@ -22,6 +23,9 @@ export function SignUpPage() {
 	const [errors, setErrors] = useState("");
 	const isNarrowScreen = useMediaQuery("(max-width: 48em)");
 	const navigate = useNavigate();
+	const { user } = useAuth();
+
+	if (user) return navigate("/");
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();

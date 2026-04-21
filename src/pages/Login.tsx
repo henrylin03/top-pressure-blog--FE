@@ -20,8 +20,10 @@ export default function LoginPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 	const isNarrowScreen = useMediaQuery("(max-width: 48em)");
-	const { login } = useAuth();
+	const { user, login } = useAuth();
 	const navigate = useNavigate();
+
+	if (user) return navigate("/");
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
