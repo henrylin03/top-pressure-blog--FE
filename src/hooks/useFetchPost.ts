@@ -9,33 +9,36 @@ export const useFetchPost = (postId: string) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 
-	const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
-
 	useEffect(() => {
 		const fetchPost = async () => {
 			setIsLoading(true);
+			setError("");
+
 			try {
+				const jwt = localStorage.getItem(JWT_LOCALSTORAGE_KEY) || "";
 				const res = await fetch(`${BASE_URL}/${postId}`, {
 					headers: {
 						Authorization: jwt ? `Bearer ${jwt}` : "",
 					},
 				});
-				const { post } = await res.json();
-				console.log("post in hook:", post);
-				if (!post) throw new Error("Post not found");
 
+				const json = await res.json();
+				if (!res.ok) throw new Error(json.error);
+
+				const { post } = json;
+				if (!post)
+					throw new Error("Error while getting post. Please try again.");
 				setPost(post);
 			} catch (error) {
-				error instanceof Error
-					? setError(error.message)
-					: setError(String(error));
+				setError(String(error));
+				console.error("Error when fetching post:", error);
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
 		fetchPost();
-	}, [jwt, postId]);
+	}, [postId]);
 
 	return { post, isLoading, error };
 };

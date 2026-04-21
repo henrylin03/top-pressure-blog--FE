@@ -1,5 +1,6 @@
 import { Container } from "@mantine/core";
 import { useParams } from "react-router";
+import ErrorMessageSection from "@/components/ErrorMessage";
 import { useFetchPost } from "@/hooks/useFetchPost";
 import CommentsSection from "./CommentsSection";
 import styles from "./Post.module.css";
@@ -8,10 +9,11 @@ import PostHeader from "./PostHeader";
 
 const PostPage = () => {
 	const { postId } = useParams();
-	const { post, isLoading } = useFetchPost(String(postId));
-	console.log("post (in component):", post);
+	const { post, isLoading, error } = useFetchPost(String(postId));
 
-	if (isLoading || !post) return <>Loading...</>;
+	if (isLoading) return <>Loading...</>;
+	if (error) return <ErrorMessageSection />;
+	if (!post) return <></>;
 
 	const {
 		author,
