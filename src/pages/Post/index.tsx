@@ -12,8 +12,7 @@ const PostPage = () => {
 	const { post, isLoading, error } = useFetchPost(String(postId));
 
 	if (isLoading) return <>Loading...</>;
-	if (error) return <ErrorMessageSection />;
-	if (!post) return <></>;
+	if (error || !post) return <ErrorMessageSection />;
 
 	const {
 		author,
