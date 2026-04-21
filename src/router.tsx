@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import Posts from "@/pages/Posts";
 import App from "./App";
+import ErrorPage from "./pages/Error";
 import LoginPage from "./pages/Login";
 import { SignUpPage } from "./pages/SignUp";
 
@@ -12,7 +13,12 @@ const routes = [
 ];
 
 const router = createBrowserRouter([
-	{ path: "/", element: <App />, children: routes },
+	{
+		path: "/",
+		element: <App />,
+		children: routes,
+		errorElement: <ErrorPage />,
+	},
 ]);
 
 export { router };
