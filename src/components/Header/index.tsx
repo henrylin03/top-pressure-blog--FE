@@ -1,7 +1,7 @@
-import { Box, Group, Title } from "@mantine/core";
+import { Box, Button, Group, Title } from "@mantine/core";
+import { Link } from "react-router";
 import logo from "/images/logo.png";
 import styles from "./Header.module.css";
-import HeaderRight from "./HeaderRight";
 
 const Header = () => {
 	return (
@@ -13,7 +13,9 @@ const Header = () => {
 				</Title>
 			</Group>
 
-			<HeaderRight />
+			<Button component={Link} to="/login" variant="filled" size="md">
+				Sign in
+			</Button>
 		</Box>
 	);
 };

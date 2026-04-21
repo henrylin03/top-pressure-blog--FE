@@ -10,7 +10,9 @@ import "@/styles/global.css";
 const App = () => (
 	<MantineProvider theme={theme}>
 		<Header />
-		<Outlet />
+		<main>
+			<Outlet />
+		</main>
 		<Footer links={SOCIALS_LINKS} />
 	</MantineProvider>
 );
