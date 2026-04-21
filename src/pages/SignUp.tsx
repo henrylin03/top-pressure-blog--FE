@@ -13,13 +13,15 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import type { ServerSideError } from "@/types/error";
 import logoImg from "/images/logo.png";
 
 export function SignUpPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState("");
 	const isNarrowScreen = useMediaQuery("(max-width: 48em)");
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -27,7 +29,33 @@ export function SignUpPage() {
 		setErrors("");
 
 		const form = e.currentTarget;
-		const _formData = new FormData(form);
+		const formData = new FormData(form);
+
+		try {
+			const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/users`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					email: formData.get("email"),
+					username: formData.get("username"),
+					firstName: formData.get("firstName") || null,
+					lastName: formData.get("lastName") || null,
+					password: formData.get("password"),
+				}),
+			});
+
+			// todo: add user's email into that page (login) straightaway
+			if (res.ok) return navigate("/login");
+
+			const json = await res.json();
+			const { errors } = json;
+			const errorMessages = errors.map((err: ServerSideError) => err.msg);
+			setErrors(errorMessages);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
