@@ -12,37 +12,42 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "@/contexts/auth";
 import logoImg from "/images/logo.png";
 
 export default function LoginPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 	const isNarrowScreen = useMediaQuery("(max-width: 48em)");
+	const { login } = useAuth();
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsLoading(true);
 		setError("");
 
-		const _formData = new FormData(e.currentTarget);
-		// const usernameOrEmail = formData.get("usernameOrEmail");
-		// const password = formData.get("password");
+		const formData = new FormData(e.currentTarget);
+		const usernameOrEmail = formData.get("usernameOrEmail");
+		const password = formData.get("password");
 
-		// try {
-		// 	if (!usernameOrEmail || !password)
-		// 		throw new Error("Username and/or password missing");
-		// } catch (err) {
-		// 	if (err instanceof Error) {
-		// 		console.error(err.message);
-		// 		setError(err.message);
-		// 	} else {
-		// 		console.error(err);
-		// 		setError(String(err));
-		// 	}
-		// } finally {
-		// 	setIsLoading(false);
-		// }
+		try {
+			if (!usernameOrEmail || !password)
+				throw new Error("Username and/or password missing");
+			await login(usernameOrEmail.toString(), password.toString());
+			navigate("/");
+		} catch (err) {
+			if (err instanceof Error) {
+				console.error(err.message);
+				setError(err.message);
+			} else {
+				console.error(err);
+				setError(String(err));
+			}
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
