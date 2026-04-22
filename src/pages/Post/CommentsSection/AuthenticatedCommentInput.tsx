@@ -1,5 +1,6 @@
 import { Button, Group, Stack, Text, Textarea } from "@mantine/core";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import UserAvatar from "@/components/UserAvatar";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import type { ServerSideError } from "@/types/error";
@@ -17,6 +18,9 @@ const AuthenticatedCommentInput = ({
 }: AuthenticatedCommentInputProps) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [errors, setErrors] = useState<ServerSideError[] | null>(null);
+	const navigate = useNavigate();
+
+	const refreshPage = () => navigate(0);
 
 	const postComment = async (commentText: string): Promise<boolean> => {
 		setIsSubmitting(true);
@@ -61,7 +65,7 @@ const AuthenticatedCommentInput = ({
 		if (!commentText?.toString().trim()) return;
 
 		const isSuccessfulPost = await postComment(String(commentText));
-		if (isSuccessfulPost) form.reset();
+		if (isSuccessfulPost) refreshPage();
 	};
 
 	const hasErrors = Array.isArray(errors) && errors.length > 0;
