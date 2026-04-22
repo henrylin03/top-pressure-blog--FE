@@ -1,7 +1,7 @@
 import PreviewCard from "@components/PreviewCard";
 import { Stack, Text } from "@mantine/core";
 import { useFetchPosts } from "@/hooks/useFetchPosts";
-import LoadingPreviewCard from "../PreviewCard/LoadingPreviewCard";
+import LoadingPreviewCard from "./PreviewCard/LoadingPreviewCard";
 
 const Feed = () => {
 	const { posts, isLoading, error } = useFetchPosts();
