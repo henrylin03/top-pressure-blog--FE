@@ -23,7 +23,7 @@ export default function LoginPage() {
 	const { user, login } = useAuth();
 	const navigate = useNavigate();
 
-	if (user) return navigate("/");
+	if (user) return <>{navigate("/")}</>;
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();

@@ -25,7 +25,7 @@ export function SignUpPage() {
 	const navigate = useNavigate();
 	const { user } = useAuth();
 
-	if (user) return navigate("/");
+	if (user) return <>{navigate("/")}</>;
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
