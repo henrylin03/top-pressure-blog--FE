@@ -33,7 +33,7 @@ This project is part of [The Odin Project's](https://www.theodinproject.com/) "F
 
 As this project is part of a broader project that focuses on REST API (backend) development, architecture is kept fairly simple for v1 of this blog. Overall, this app is a React SPA, built in Vite, with TypeScript support. I've used Mantine UI library because of its abundance of React components and amazing DX. 
 
-Client-side routing is implemented using Tanstack Router, mostly because of the hype around it as a replacement to React Router. 
+Client-side routing is implemented using React Router, Declarative mode. 
 
 <!-- CONTRIBUTING -->
 
