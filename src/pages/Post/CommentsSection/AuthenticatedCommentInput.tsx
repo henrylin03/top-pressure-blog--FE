@@ -9,11 +9,13 @@ import type { User } from "@/types/user";
 interface AuthenticatedCommentInputProps {
 	username: User["username"];
 	postId: Post["id"];
+	refetchComments: () => void;
 }
 
 const AuthenticatedCommentInput = ({
 	username,
 	postId,
+	refetchComments,
 }: AuthenticatedCommentInputProps) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [errors, setErrors] = useState<ServerSideError[] | null>(null);
@@ -63,6 +65,7 @@ const AuthenticatedCommentInput = ({
 		const isSuccessfulPost = await postComment(String(commentText));
 		if (isSuccessfulPost) {
 			form.reset();
+			refetchComments();
 		}
 	};
 
