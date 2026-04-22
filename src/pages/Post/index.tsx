@@ -9,7 +9,7 @@ import PostHeader from "./PostHeader";
 
 const PostPage = () => {
 	const { postId } = useParams();
-	const { post, isLoading, error } = useFetchPost(String(postId));
+	const { post, isLoading, error, refetch } = useFetchPost(String(postId));
 
 	if (isLoading) return <>Loading...</>;
 	if (error || !post) return <ErrorMessageSection />;
@@ -40,7 +40,11 @@ const PostPage = () => {
 				<PostBody lede={lede} text={text} />
 			</Container>
 			<Container component="section" className={styles.section}>
-				<CommentsSection comments={comments} postId={String(postId)} />
+				<CommentsSection
+					comments={comments}
+					postId={String(postId)}
+					refetchComments={refetch}
+				/>
 			</Container>
 		</Container>
 	);

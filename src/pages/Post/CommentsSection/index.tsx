@@ -7,12 +7,13 @@ import AuthenticatedCommentInput from "./AuthenticatedCommentInput";
 import Comment from "./Comment";
 import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
 
-interface CommentsSectionProps {
+interface Props {
 	comments: CommentType[];
 	postId: Post["id"];
+	refetchComments: () => void;
 }
 
-const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
+const CommentsSection = ({ comments, postId, refetchComments }: Props) => {
 	const { user } = useAuth();
 
 	return (
@@ -22,7 +23,11 @@ const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
 			</Title>
 
 			{user ? (
-				<AuthenticatedCommentInput username={user.username} postId={postId} />
+				<AuthenticatedCommentInput
+					username={user.username}
+					postId={postId}
+					refetchComments={refetchComments}
+				/>
 			) : (
 				<UnauthenticatedCommentInput />
 			)}
