@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 
 const ErrorPage = () => (
 	<>
+		<title>Error | Top Pressure Blog</title>
+
 		<Header />
 		<ErrorMessageSection />
 	</>

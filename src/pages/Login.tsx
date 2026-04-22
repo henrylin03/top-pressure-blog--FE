@@ -53,86 +53,95 @@ export default function LoginPage() {
 	};
 
 	return (
-		<Container mt="6rem">
-			<Card
-				shadow="xl"
-				maw="22rem"
-				mx="auto"
-				py={{ base: "xl", xs: "4rem" }}
-				px={{ base: "lg", xs: "xl" }}
-				radius="lg"
-			>
-				<Stack align="center" gap="xl">
-					<Stack component="header" align="center" gap="xs">
-						<Link to="/" aria-label="Return to home page of Top Pressure blog">
-							<Image
-								w={60}
-								h="auto"
-								fit="contain"
-								src={logoImg}
-								loading="eager"
-								alt="Logo of Top Pressure Blog"
-							/>
-						</Link>
-						<Title order={2} fz="h1" c="dark.6" ta="center">
-							Welcome back!
-						</Title>
-					</Stack>
-
-					<form onSubmit={handleSubmit} style={{ width: "100%" }}>
-						<Stack component="ul">
-							<li>
-								<TextInput
-									placeholder="Email or username"
-									required
-									name="usernameOrEmail"
-									size={isNarrowScreen ? "sm" : "md"}
-									error={!!error}
+		<>
+			<title>Log in | Top Pressure Blog for Grapplers</title>
+			<Container mt="6rem">
+				<Card
+					shadow="xl"
+					maw="22rem"
+					mx="auto"
+					py={{ base: "xl", xs: "4rem" }}
+					px={{ base: "lg", xs: "xl" }}
+					radius="lg"
+				>
+					<Stack align="center" gap="xl">
+						<Stack component="header" align="center" gap="xs">
+							<Link
+								to="/"
+								aria-label="Return to home page of Top Pressure blog"
+							>
+								<Image
+									w={60}
+									h="auto"
+									fit="contain"
+									src={logoImg}
+									loading="eager"
+									alt="Logo of Top Pressure Blog"
 								/>
-							</li>
-							<li>
-								<PasswordInput
-									placeholder="Password"
-									required
-									name="password"
-									size={isNarrowScreen ? "sm" : "md"}
-									error={!!error}
-								/>
-							</li>
-							{error && (
-								<li>
-									<Text fz="sm" style={{ color: "var(--mantine-color-error)" }}>
-										{error}
-									</Text>
-								</li>
-							)}
-							<li>
-								<Button
-									size={isNarrowScreen ? "md" : "lg"}
-									fullWidth
-									type="submit"
-									loading={isLoading}
-								>
-									Sign in
-								</Button>
-							</li>
+							</Link>
+							<Title order={2} fz="h1" c="dark.6" ta="center">
+								Welcome back!
+							</Title>
 						</Stack>
-					</form>
 
-					<Text fz="xs" c="dimmed">
-						Don't have an account?{" "}
-						<Anchor
-							component={Link}
-							to="/signup"
-							fz="xs"
-							underline="not-hover"
-							c="dimmed"
-						>
-							Sign up
-						</Anchor>
-					</Text>
-				</Stack>
-			</Card>
-		</Container>
+						<form onSubmit={handleSubmit} style={{ width: "100%" }}>
+							<Stack component="ul">
+								<li>
+									<TextInput
+										placeholder="Email or username"
+										required
+										name="usernameOrEmail"
+										size={isNarrowScreen ? "sm" : "md"}
+										error={!!error}
+									/>
+								</li>
+								<li>
+									<PasswordInput
+										placeholder="Password"
+										required
+										name="password"
+										size={isNarrowScreen ? "sm" : "md"}
+										error={!!error}
+									/>
+								</li>
+								{error && (
+									<li>
+										<Text
+											fz="sm"
+											style={{ color: "var(--mantine-color-error)" }}
+										>
+											{error}
+										</Text>
+									</li>
+								)}
+								<li>
+									<Button
+										size={isNarrowScreen ? "md" : "lg"}
+										fullWidth
+										type="submit"
+										loading={isLoading}
+									>
+										Sign in
+									</Button>
+								</li>
+							</Stack>
+						</form>
+
+						<Text fz="xs" c="dimmed">
+							Don't have an account?{" "}
+							<Anchor
+								component={Link}
+								to="/signup"
+								fz="xs"
+								underline="not-hover"
+								c="dimmed"
+							>
+								Sign up
+							</Anchor>
+						</Text>
+					</Stack>
+				</Card>
+			</Container>
+		</>
 	);
 }
