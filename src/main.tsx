@@ -1,6 +1,12 @@
+import { MantineProvider } from "@mantine/core";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import { RouterProvider } from "react-router";
+import { router } from "./router";
+import "@/styles/global.css";
+import "@mantine/core/styles.css";
+import { AuthProvider } from "./contexts/auth";
+import { theme } from "./styles/theme";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("#root element not found");
@@ -9,7 +15,11 @@ if (!rootElement.innerHTML) {
 	const root = createRoot(rootElement);
 	root.render(
 		<StrictMode>
-			<App />
+			<MantineProvider theme={theme}>
+				<AuthProvider>
+					<RouterProvider router={router} />
+				</AuthProvider>
+			</MantineProvider>
 		</StrictMode>,
 	);
 }

@@ -3,6 +3,7 @@ import {
 	Button,
 	Card,
 	Container,
+	Image,
 	List,
 	SimpleGrid,
 	Stack,
@@ -10,25 +11,26 @@ import {
 	TextInput,
 	Title,
 } from "@mantine/core";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import styles from "@/styles/Auth.module.css";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "@/contexts/auth";
 import type { ServerSideError } from "@/types/error";
 import logoImg from "/images/logo.png";
 
-export const Route = createFileRoute("/signup")({
-	component: SignUpForm,
-});
-
-function SignUpForm() {
-	const navigate = useNavigate();
+export function SignUpPage() {
 	const [isLoading, setIsLoading] = useState(false);
-	const [errors, setErrors] = useState<ServerSideError["msg"][] | null>(null);
+	const [errors, setErrors] = useState("");
+	const isNarrowScreen = useMediaQuery("(max-width: 48em)");
+	const navigate = useNavigate();
+	const { user } = useAuth();
+
+	if (user) return <>{navigate("/")}</>;
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsLoading(true);
-		setErrors(null);
+		setErrors("");
 
 		const form = e.currentTarget;
 		const formData = new FormData(form);
@@ -46,14 +48,15 @@ function SignUpForm() {
 				}),
 			});
 
+			// todo: add user's email into that page (login) straightaway
+			if (res.ok) return navigate("/login");
+
 			const json = await res.json();
-
-			if (res.ok) return navigate({ to: "/login", search: { redirect: "/" } });
-
 			const { errors } = json;
 			const errorMessages = errors.map((err: ServerSideError) => err.msg);
 			setErrors(errorMessages);
-		} catch (_err) {
+		} catch (error) {
+			console.error(error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -65,19 +68,20 @@ function SignUpForm() {
 				shadow="sm"
 				maw="24rem"
 				m="auto"
-				pt="xl"
-				pb={{ base: "xl", xs: "5rem" }}
+				py="xl"
 				px={{ base: "md", xs: "2.5rem" }}
 				radius="lg"
 			>
 				<Stack align="center" gap="lg">
 					<Stack component="header" align="center" gap={0}>
 						<Link to="/" aria-label="Return to home page">
-							<img
-								className={styles.logo}
+							<Image
+								w={60}
+								h="auto"
+								fit="contain"
 								src={logoImg}
-								alt="Logo of Top Pressure Blog"
 								loading="eager"
+								alt="Logo of Top Pressure Blog"
 							/>
 						</Link>
 						<Title order={2} fz="h1" my={4}>
@@ -87,22 +91,37 @@ function SignUpForm() {
 
 					<form onSubmit={handleSubmit}>
 						<Stack>
-							<TextInput name="username" placeholder="Username" required />
+							<TextInput
+								name="username"
+								placeholder="Username"
+								required
+								size={isNarrowScreen ? "sm" : "md"}
+							/>
 							<TextInput
 								type="email"
 								name="email"
 								placeholder="Email"
 								required
+								size={isNarrowScreen ? "sm" : "md"}
 							/>
 							<SimpleGrid cols={2}>
-								<TextInput name="firstName" placeholder="First name" />
-								<TextInput name="lastName" placeholder="Last name" />
+								<TextInput
+									name="firstName"
+									placeholder="First name"
+									size={isNarrowScreen ? "sm" : "md"}
+								/>
+								<TextInput
+									name="lastName"
+									placeholder="Last name"
+									size={isNarrowScreen ? "sm" : "md"}
+								/>
 							</SimpleGrid>
 							<TextInput
 								type="password"
 								name="password"
 								placeholder="Password"
 								required
+								size={isNarrowScreen ? "sm" : "md"}
 							/>
 							{Array.isArray(errors) && errors.length && (
 								<List fz="sm" c="#FF3399" listStyleType="disc">
@@ -111,7 +130,12 @@ function SignUpForm() {
 									))}
 								</List>
 							)}
-							<Button type="submit" size="md" loading={isLoading} mt="md">
+							<Button
+								type="submit"
+								size={isNarrowScreen ? "md" : "lg"}
+								loading={isLoading}
+								mt="md"
+							>
 								Sign up for free
 							</Button>
 						</Stack>

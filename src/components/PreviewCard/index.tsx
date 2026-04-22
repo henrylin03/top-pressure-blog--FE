@@ -1,6 +1,6 @@
 import { Anchor, Card, Stack } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
 import dayjs from "dayjs";
+import { Link } from "react-router";
 import type { PublishedPostPreview } from "@/types/post";
 import styles from "./PreviewCard.module.css";
 

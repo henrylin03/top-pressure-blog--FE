@@ -1,8 +1,7 @@
-import PreviewCard from "@components/PreviewCard/PreviewCard";
+import PreviewCard from "@components/PreviewCard";
 import { Stack, Text } from "@mantine/core";
 import { useFetchPosts } from "@/hooks/useFetchPosts";
-import PreviewCardLoading from "../PreviewCard/PreviewCardLoading";
-import styles from "./Feed.module.css";
+import LoadingPreviewCard from "./PreviewCard/LoadingPreviewCard";
 
 const Feed = () => {
 	const { posts, isLoading, error } = useFetchPosts();
@@ -10,9 +9,9 @@ const Feed = () => {
 	if (isLoading)
 		return (
 			<Stack component="section" my="xl" gap="xl">
-				<PreviewCardLoading />
-				<PreviewCardLoading />
-				<PreviewCardLoading />
+				<LoadingPreviewCard />
+				<LoadingPreviewCard />
+				<LoadingPreviewCard />
 			</Stack>
 		);
 
@@ -20,7 +19,7 @@ const Feed = () => {
 
 	return (
 		<Stack component="section" my="xl" gap="xl">
-			<Stack component="ul" className={styles.list}>
+			<Stack component="ul">
 				{posts.map((post) => (
 					<li key={post.id}>
 						<PreviewCard post={post} />

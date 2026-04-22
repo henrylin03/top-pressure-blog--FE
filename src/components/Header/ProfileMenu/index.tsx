@@ -1,21 +1,24 @@
 import UserAvatar from "@components/UserAvatar";
 import { Group, Menu, Text } from "@mantine/core";
-import { IconLogout } from "@tabler/icons-react";
-import { useRouter } from "@tanstack/react-router";
+import { IconAlignLeft2, IconLogout } from "@tabler/icons-react";
+import { Link, useNavigate } from "react-router";
+import type { AuthState } from "@/contexts/auth";
+import type { User } from "@/types/user";
 import ProfileButton from "./ProfileButton";
 
-type Props = Readonly<{ username: string; email: string; logout: () => void }>;
+type Props = { user: User; logout: AuthState["logout"] };
 
-const ProfileMenu = ({ username, email, logout }: Props) => {
-	const router = useRouter();
+const ProfileMenu = ({ user, logout }: Props) => {
+	const { username, email, isAuthor } = user;
+	const navigate = useNavigate();
 
-	const handleSignOut = async () => {
+	const handleSignOut = () => {
 		logout();
-		await router.invalidate();
+		navigate("/");
 	};
 
 	return (
-		<Menu width={180}>
+		<Menu width={180} shadow="md">
 			<Menu.Target>
 				<ProfileButton username={username} email={email} />
 			</Menu.Target>
@@ -27,6 +30,16 @@ const ProfileMenu = ({ username, email, logout }: Props) => {
 					</Group>
 				</Menu.Label>
 				<Menu.Divider />
+				{isAuthor && (
+					<Menu.Item
+						c="dark.7"
+						leftSection={<IconAlignLeft2 size={20} strokeWidth={1} />}
+						component={Link}
+						to="/posts"
+					>
+						View posts
+					</Menu.Item>
+				)}
 				<Menu.Item
 					onClick={handleSignOut}
 					leftSection={<IconLogout size={20} strokeWidth={1} />}

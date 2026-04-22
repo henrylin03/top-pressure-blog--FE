@@ -1,8 +1,7 @@
-import Feed from "@components/Feed/Feed";
 import { Container, Text, Title } from "@mantine/core";
-import { createFileRoute } from "@tanstack/react-router";
+import Feed from "@/components/PostsFeed";
 
-const Index = () => (
+const PostsPage = () => (
 	<Container my="3rem">
 		<header>
 			<Title order={1} fz={{ base: "2.5rem", sm: "2.75rem" }} mb="sm">
@@ -19,6 +18,4 @@ const Index = () => (
 	</Container>
 );
 
-export const Route = createFileRoute("/")({
-	component: Index,
-});
+export default PostsPage;
