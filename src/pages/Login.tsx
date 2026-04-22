@@ -38,7 +38,7 @@ export default function LoginPage() {
 			if (!usernameOrEmail || !password)
 				throw new Error("Username and/or password missing");
 			await login(usernameOrEmail.toString(), password.toString());
-			navigate("/");
+			navigate(-1);
 		} catch (err) {
 			if (err instanceof Error) {
 				console.error(err.message);
