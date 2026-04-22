@@ -7,12 +7,12 @@ import AuthenticatedCommentInput from "./AuthenticatedCommentInput";
 import Comment from "./Comment";
 import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
 
-interface CommentsSectionProps {
+interface Props {
 	comments: CommentType[];
 	postId: Post["id"];
 }
 
-const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
+const CommentsSection = ({ comments, postId }: Props) => {
 	const { user } = useAuth();
 
 	return (
