@@ -18,7 +18,7 @@ import { useAuth } from "@/contexts/auth";
 import type { ServerSideError } from "@/types/error";
 import logoImg from "/images/logo.png";
 
-export function SignUpPage() {
+export default function SignUpPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState("");
 	const isNarrowScreen = useMediaQuery("(max-width: 48em)");

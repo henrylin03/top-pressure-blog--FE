@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { User } from "@/types/user";
 
+export const JWT_LOCALSTORAGE_KEY = "jwt";
 export type AuthState = {
 	user: User | null;
 	login: (usernameOrEmail: string, password: string) => Promise<void>;
@@ -8,8 +9,6 @@ export type AuthState = {
 };
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
-
-export const JWT_LOCALSTORAGE_KEY = "jwt";
 
 const validateJwt = async (token: string): Promise<User | undefined> => {
 	const removeJwt = () => localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
