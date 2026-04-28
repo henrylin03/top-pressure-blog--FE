@@ -1,5 +1,5 @@
 import { Text } from "@mantine/core";
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import { useFetchAuthorsPosts } from "@/hooks/useFetchAuthorsPosts";
 import type { AuthoredPostType } from "@/types/post";
 import DraftPostsTable from "./DraftPosts";
@@ -22,6 +22,7 @@ const MyPostsTable = () => {
 		return <PublishedPostsTable posts={posts} fetchData={fetchData} />;
 	if (postsType === "drafts")
 		return <DraftPostsTable posts={posts} fetchData={fetchData} />;
+	return <Navigate to="/my-posts" replace />;
 };
 
 export default MyPostsTable;
