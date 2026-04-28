@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { User } from "@/types/user";
 
 export const JWT_LOCALSTORAGE_KEY = "tpb-jwt-lgtm";
-type AuthContextProps = {
+export type AuthContextProps = {
 	user: User | null;
 	isLoading: boolean;
 	login: (usernameOrEmail: string, password: string) => Promise<void>;

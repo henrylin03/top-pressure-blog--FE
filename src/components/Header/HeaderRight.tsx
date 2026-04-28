@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 import { Link } from "react-router";
-import type { AuthState } from "@/contexts/auth";
+import type { AuthContextProps as AuthState } from "@/contexts/auth";
 import ProfileMenu from "./ProfileMenu";
 
 interface Props {
