@@ -1,8 +1,8 @@
 import UserAvatar from "@components/UserAvatar";
 import { Group, Menu, Text } from "@mantine/core";
 import { IconAlignLeft2, IconLogout } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router";
-import type { AuthState } from "@/contexts/auth";
+import { Link } from "react-router";
+import type { AuthContextProps as AuthState } from "@/contexts/auth";
 import type { User } from "@/types/user";
 import ProfileButton from "./ProfileButton";
 
@@ -10,12 +10,6 @@ type Props = { user: User; logout: AuthState["logout"] };
 
 const ProfileMenu = ({ user, logout }: Props) => {
 	const { username, email, isAuthor } = user;
-	const navigate = useNavigate();
-
-	const handleSignOut = () => {
-		logout();
-		navigate("/");
-	};
 
 	return (
 		<Menu width={180} shadow="md">
@@ -41,7 +35,7 @@ const ProfileMenu = ({ user, logout }: Props) => {
 					</Menu.Item>
 				)}
 				<Menu.Item
-					onClick={handleSignOut}
+					onClick={() => logout()}
 					leftSection={<IconLogout size={20} strokeWidth={1} />}
 					c="dark.7"
 				>
