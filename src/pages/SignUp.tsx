@@ -13,19 +13,21 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { useAuth } from "@/contexts/auth";
 import type { ServerSideError } from "@/types/error";
 import logoImg from "/images/logo.png";
 
-export function SignUpPage() {
+export default function SignUpPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState("");
 	const isNarrowScreen = useMediaQuery("(max-width: 48em)");
-	const navigate = useNavigate();
 	const { user } = useAuth();
+	const location = useLocation();
+	const navigate = useNavigate();
 
-	if (user) return <>{navigate("/")}</>;
+	const origin = location.state?.from?.pathname || "/";
+	if (user) return <Navigate to={origin} replace />;
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();

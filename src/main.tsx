@@ -5,8 +5,7 @@ import { RouterProvider } from "react-router";
 import { router } from "./router";
 import "@/styles/global.css";
 import "@mantine/core/styles.css";
-import { AuthProvider } from "./contexts/auth";
-import { theme } from "./styles/theme";
+import { theme } from "@/styles/theme";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("#root element not found");
@@ -16,9 +15,7 @@ if (!rootElement.innerHTML) {
 	root.render(
 		<StrictMode>
 			<MantineProvider theme={theme}>
-				<AuthProvider>
-					<RouterProvider router={router} />
-				</AuthProvider>
+				<RouterProvider router={router} />
 			</MantineProvider>
 		</StrictMode>,
 	);

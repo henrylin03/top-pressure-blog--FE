@@ -1,15 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import type { User } from "@/types/user";
 
-export type AuthState = {
+export const JWT_LOCALSTORAGE_KEY = "tpb-jwt-lgtm";
+export type AuthContextProps = {
 	user: User | null;
+	isLoading: boolean;
 	login: (usernameOrEmail: string, password: string) => Promise<void>;
 	logout: () => void;
 };
 
-const AuthContext = createContext<AuthState | undefined>(undefined);
-
-export const JWT_LOCALSTORAGE_KEY = "jwt";
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 const validateJwt = async (token: string): Promise<User | undefined> => {
 	const removeJwt = () => localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
@@ -39,15 +40,21 @@ const validateJwt = async (token: string): Promise<User | undefined> => {
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
+		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
 		const checkJwt = async () => {
-			const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-			if (!token) return setUser(null);
+			if (!token) {
+				setUser(null);
+				return setIsLoading(false);
+			}
 
 			const user = await validateJwt(token);
-			if (user) setUser(user);
-			else setUser(null);
+			setUser(user ?? null);
+			setIsLoading(false);
 		};
 
 		checkJwt();
@@ -67,6 +74,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 		const user = await validateJwt(token);
 		if (user) setUser(user);
+
+		const origin = location.state?.from?.pathname || "/";
+		navigate(origin);
 	};
 
 	const logout = () => {
@@ -75,7 +85,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, login, logout }}>
+		<AuthContext.Provider value={{ user, isLoading, login, logout }}>
 			{children}
 		</AuthContext.Provider>
 	);
