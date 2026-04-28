@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import MyDraftPosts from "@/pages/author/MyDraftPosts";
 import MyPostsPage from "@/pages/author/MyPosts";
-import MyPublishedPosts from "@/pages/author/MyPublishedPosts";
 import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
 import PostPage from "@/pages/Post";
 import Posts from "@/pages/Posts";
 import SignUpPage from "@/pages/SignUp";
 import App from "./App";
+import PostsTable from "./components/PostsTable";
 
 const routes = [
 	{ path: "/", element: <Posts /> },
@@ -27,12 +26,8 @@ const routes = [
 		),
 		children: [
 			{
-				path: "drafts",
-				element: <MyDraftPosts />,
-			},
-			{
-				path: "published",
-				element: <MyPublishedPosts />,
+				path: ":type",
+				element: <PostsTable />,
 			},
 		],
 	},

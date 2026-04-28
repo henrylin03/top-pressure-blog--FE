@@ -1,11 +1,13 @@
 import { Button, Container, Group, Stack, Tabs, Title } from "@mantine/core";
 import { IconBallpen } from "@tabler/icons-react";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate, useParams } from "react-router";
 
 export default function MyPostsPage() {
-	const TABS = ["published", "drafts"];
+	const TABS = ["published", "drafts"] as const;
+	const URL_PREFIX = "/my-posts";
 
 	const navigate = useNavigate();
+	const { type: postType } = useParams();
 
 	return (
 		<Container my="xl">
@@ -21,15 +23,15 @@ export default function MyPostsPage() {
 
 				<Tabs
 					component="nav"
-					defaultValue={TABS[0]}
-					onChange={(value) => navigate(`/my-posts/${value}`)}
+					value={postType}
+					onChange={(value) => navigate(`${URL_PREFIX}/${value}`)}
 				>
 					<Tabs.List>
 						{TABS.map((t) => (
 							<Tabs.Tab
 								value={t}
-								key={t}
 								style={{ textTransform: "capitalize" }}
+								key={t}
 							>
 								{t}
 							</Tabs.Tab>
