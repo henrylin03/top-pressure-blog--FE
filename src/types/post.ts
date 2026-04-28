@@ -17,3 +17,6 @@ export type PublishedPostPreview = Pick<
 	Post,
 	"id" | "publishedAt" | "title" | "lede"
 >;
+
+export const AUTHORED_POST_TYPE = ["published", "drafts"] as const;
+export type AuthoredPostType = (typeof AUTHORED_POST_TYPE)[number];
