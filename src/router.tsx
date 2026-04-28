@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import MyDraftPosts from "@/pages/author/MyDraftPosts";
 import MyPostsPage from "@/pages/author/MyPosts";
+import MyPublishedPosts from "@/pages/author/MyPublishedPosts";
 import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
 import PostPage from "@/pages/Post";
@@ -23,6 +25,16 @@ const routes = [
 				<MyPostsPage />
 			</ProtectedRoute>
 		),
+		children: [
+			{
+				path: "drafts",
+				element: <MyDraftPosts />,
+			},
+			{
+				path: "published",
+				element: <MyPublishedPosts />,
+			},
+		],
 	},
 ];
 
