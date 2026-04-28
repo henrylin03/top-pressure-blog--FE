@@ -35,7 +35,7 @@ const ProfileMenu = ({ user, logout }: Props) => {
 						c="dark.7"
 						leftSection={<IconAlignLeft2 size={20} strokeWidth={1} />}
 						component={Link}
-						to="/posts"
+						to="/my-posts"
 					>
 						View posts
 					</Menu.Item>
