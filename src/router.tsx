@@ -19,7 +19,7 @@ const routes = [
 	{
 		path: "/my-posts",
 		element: (
-			<ProtectedRoute>
+			<ProtectedRoute isAuthorOnly>
 				<MyPostsPage />
 			</ProtectedRoute>
 		),
