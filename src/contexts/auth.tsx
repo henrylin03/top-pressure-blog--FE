@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import type { User } from "@/types/user";
 
 export const JWT_LOCALSTORAGE_KEY = "tpb-jwt-lgtm";
@@ -40,6 +41,8 @@ const validateJwt = async (token: string): Promise<User | undefined> => {
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
@@ -71,6 +74,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 		const user = await validateJwt(token);
 		if (user) setUser(user);
+
+		const origin = location.state?.from?.pathname || "/";
+		navigate(origin);
 	};
 
 	const logout = () => {
