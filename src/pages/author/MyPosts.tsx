@@ -1,7 +1,10 @@
-import { Button, Container, Group, Stack, Title } from "@mantine/core";
+import { Button, Container, Group, Stack, Tabs, Title } from "@mantine/core";
 import { IconBallpen } from "@tabler/icons-react";
+import { Outlet } from "react-router";
 
 export default function MyPostsPage() {
+	const TABS = ["published", "drafts"];
+
 	return (
 		<Container my="xl">
 			<Stack gap="xl">
@@ -13,6 +16,22 @@ export default function MyPostsPage() {
 						Write post
 					</Button>
 				</Group>
+
+				<Tabs component="nav" defaultValue={TABS[0]}>
+					<Tabs.List>
+						{TABS.map((t) => (
+							<Tabs.Tab
+								value={t}
+								key={t}
+								style={{ textTransform: "capitalize" }}
+							>
+								{t}
+							</Tabs.Tab>
+						))}
+					</Tabs.List>
+				</Tabs>
+
+				<Outlet />
 			</Stack>
 		</Container>
 	);
