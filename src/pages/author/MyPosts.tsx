@@ -1,11 +1,14 @@
 import { Button, Container, Group, Stack, Tabs, Title } from "@mantine/core";
 import { IconBallpen } from "@tabler/icons-react";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate, useParams } from "react-router";
+import { DEFAULT_AUTHOR_POST_PAGE } from "@/router";
+import { AUTHORED_POST_TYPE as TABS } from "@/types/post";
 
 export default function MyPostsPage() {
-	const TABS = ["published", "drafts"];
+	const URL_PREFIX = "/my-posts";
 
 	const navigate = useNavigate();
+	const { type: postType } = useParams();
 
 	return (
 		<Container my="xl">
@@ -21,15 +24,15 @@ export default function MyPostsPage() {
 
 				<Tabs
 					component="nav"
-					defaultValue={TABS[0]}
-					onChange={(value) => navigate(`/my-posts/${value}`)}
+					value={postType ?? DEFAULT_AUTHOR_POST_PAGE}
+					onChange={(value) => navigate(`${URL_PREFIX}/${value}`)}
 				>
 					<Tabs.List>
 						{TABS.map((t) => (
 							<Tabs.Tab
 								value={t}
-								key={t}
 								style={{ textTransform: "capitalize" }}
+								key={t}
 							>
 								{t}
 							</Tabs.Tab>
