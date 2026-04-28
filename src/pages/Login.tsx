@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { useAuth } from "@/contexts/auth";
 import logoImg from "/images/logo.png";
 
@@ -23,7 +23,7 @@ export default function LoginPage() {
 	const { user, login } = useAuth();
 	const navigate = useNavigate();
 
-	if (user) return <>{navigate("/")}</>;
+	if (user) return <Navigate to="/" />;
 
 	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault();
