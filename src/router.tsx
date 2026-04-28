@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router";
+import PostsTable from "@/components/MyPostsTable";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MyPostsPage from "@/pages/author/MyPosts";
 import ErrorPage from "@/pages/Error";
@@ -8,7 +9,6 @@ import Posts from "@/pages/Posts";
 import SignUpPage from "@/pages/SignUp";
 import type { AuthoredPostType } from "@/types/post";
 import App from "./App";
-import PostsTable from "./components/PostsTable";
 
 const DEFAULT_AUTHOR_POST_PAGE: AuthoredPostType = "published";
 
