@@ -4,7 +4,7 @@ import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import type { AuthoredPostPreview } from "@/types/post";
 
 interface Props {
-	post: PostPreview;
+	post: AuthoredPostPreview;
 	fetchData: () => Promise<void>;
 }
 
