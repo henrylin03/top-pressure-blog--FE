@@ -1,14 +1,15 @@
 import { createBrowserRouter, Navigate } from "react-router";
+import App from "@/App";
 import PostsTable from "@/components/MyPostsTable";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MyPostsPage from "@/pages/author/MyPosts";
+import NewPostPage from "@/pages/author/NewPost";
 import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
 import PostPage from "@/pages/Post";
 import Posts from "@/pages/Posts";
 import SignUpPage from "@/pages/SignUp";
 import type { AuthoredPostType } from "@/types/post";
-import App from "./App";
 
 const DEFAULT_AUTHOR_POST_PAGE: AuthoredPostType = "published";
 
@@ -37,6 +38,14 @@ const routes = [
 				element: <PostsTable />,
 			},
 		],
+	},
+	{
+		path: "/my-posts/new",
+		element: (
+			<ProtectedRoute isAuthorOnly>
+				<NewPostPage />
+			</ProtectedRoute>
+		),
 	},
 ];
 

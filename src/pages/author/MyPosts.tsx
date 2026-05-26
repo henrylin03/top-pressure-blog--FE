@@ -1,6 +1,6 @@
 import { Button, Container, Group, Stack, Tabs, Title } from "@mantine/core";
 import { IconBallpen } from "@tabler/icons-react";
-import { Outlet, useNavigate, useParams } from "react-router";
+import { Link, Outlet, useNavigate, useParams } from "react-router";
 import { AUTHORED_POST_TYPE as TABS } from "@/types/post";
 
 export default function MyPostsPage() {
@@ -18,7 +18,13 @@ export default function MyPostsPage() {
 						<Title order={2} size="h1">
 							My Posts
 						</Title>
-						<Button leftSection={<IconBallpen size={20} />} size="md" mt="xs">
+						<Button
+							leftSection={<IconBallpen size={20} />}
+							size="md"
+							mt="xs"
+							component={Link}
+							to="/my-posts/new"
+						>
 							Write post
 						</Button>
 					</Group>
