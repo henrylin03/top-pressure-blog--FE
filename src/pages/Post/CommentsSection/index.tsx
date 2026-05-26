@@ -2,26 +2,32 @@ import { Divider, Stack, Title } from "@mantine/core";
 import { useAuth } from "@/contexts/auth";
 import type { Comment as CommentType } from "@/types/comment";
 import type { Post } from "@/types/post";
+import styles from "../Post.module.css";
 import AuthenticatedCommentInput from "./AuthenticatedCommentInput";
 import Comment from "./Comment";
 import UnauthenticatedCommentInput from "./UnauthenticatedCommentInput";
 
-interface CommentsSectionProps {
+interface Props {
 	comments: CommentType[];
 	postId: Post["id"];
+	refetchComments: () => void;
 }
 
-const CommentsSection = ({ comments, postId }: CommentsSectionProps) => {
+const CommentsSection = ({ comments, postId, refetchComments }: Props) => {
 	const { user } = useAuth();
 
 	return (
 		<>
-			<Title order={3} fw={500} mb="lg">
+			<Title order={3} fw={400} mb="lg" className={styles.heading}>
 				Latest comments ({comments.length})
 			</Title>
 
 			{user ? (
-				<AuthenticatedCommentInput username={user.username} postId={postId} />
+				<AuthenticatedCommentInput
+					username={user.username}
+					postId={postId}
+					refetchComments={refetchComments}
+				/>
 			) : (
 				<UnauthenticatedCommentInput />
 			)}

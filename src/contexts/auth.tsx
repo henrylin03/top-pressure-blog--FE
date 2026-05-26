@@ -1,68 +1,82 @@
-import {
-	createContext,
-	useCallback,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import type { User } from "@/types/user";
 
-export type AuthState = {
+export const JWT_LOCALSTORAGE_KEY = "tpb-jwt-lgtm";
+export type AuthContextProps = {
 	user: User | null;
+	isLoading: boolean;
 	login: (usernameOrEmail: string, password: string) => Promise<void>;
 	logout: () => void;
 };
 
-const AuthContext = createContext<AuthState | undefined>(undefined);
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const JWT_LOCALSTORAGE_KEY = "jwt";
-
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [user, setUser] = useState<User | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
-
-	const validateJwt = useCallback(async (token: string) => {
+const validateJwt = async (token: string): Promise<User | undefined> => {
+	const removeJwt = () => localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
+	try {
 		const res = await fetch(
 			`${import.meta.env.VITE_API_URL}/api/v1/validate-jwt`,
 			{
 				headers: { Authorization: `Bearer ${token}` },
 			},
 		);
-		if (!res.ok) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
+		if (!res.ok) {
+			removeJwt();
+			return;
+		}
 
 		const { user } = await res.json();
-		if (!user) return localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
-		setUser(user);
-	}, []);
+		if (!user) {
+			removeJwt();
+			return;
+		}
+		return user;
+	} catch (error) {
+		console.error("Unable to verify JWT token:", error);
+		return;
+	}
+};
+
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+	const [user, setUser] = useState<User | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-		if (!token) return setIsLoading(false);
-		validateJwt(token).finally(() => setIsLoading(false));
-	}, [validateJwt]);
+		const checkJwt = async () => {
+			if (!token) {
+				setUser(null);
+				return setIsLoading(false);
+			}
 
-	if (isLoading)
-		return (
-			<div>
-				<p>Loading...</p>
-			</div>
-		);
+			const user = await validateJwt(token);
+			setUser(user ?? null);
+			setIsLoading(false);
+		};
+
+		checkJwt();
+	}, []);
 
 	const login = async (usernameOrEmail: string, password: string) => {
-		const loginRes = await fetch(
-			`${import.meta.env.VITE_API_URL}/api/v1/login`,
-			{
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ usernameOrEmail, password }),
-			},
-		);
+		const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/login`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ usernameOrEmail, password }),
+		});
 
-		if (!loginRes.ok) throw new Error("Authentication failed");
-		const { token } = await loginRes.json();
+		if (res.status === 401) throw new Error("Invalid username or password");
+		if (!res.ok) throw new Error("Authentication failed");
+		const { token } = await res.json();
 		localStorage.setItem(JWT_LOCALSTORAGE_KEY, token);
 
-		await validateJwt(token);
+		const user = await validateJwt(token);
+		if (user) setUser(user);
+
+		const origin = location.state?.from?.pathname || "/";
+		navigate(origin);
 	};
 
 	const logout = () => {
@@ -71,7 +85,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, login, logout }}>
+		<AuthContext.Provider value={{ user, isLoading, login, logout }}>
 			{children}
 		</AuthContext.Provider>
 	);

@@ -1,22 +1,17 @@
-import { MantineProvider } from "@mantine/core";
-import { RouterProvider } from "@tanstack/react-router";
-import { AuthProvider, useAuth } from "./contexts/auth";
-import { router } from "./router";
-import { theme } from "./styles/theme";
-import "./styles/global.css";
-import "@mantine/core/styles.css";
-
-const InnerApp = () => {
-	const auth = useAuth();
-	return <RouterProvider router={router} context={{ auth }} />;
-};
+import Header from "@components/Header";
+import { Outlet } from "react-router";
+import Footer from "@/components/Footer";
+import { AuthProvider } from "@/contexts/auth";
+import { SOCIALS_LINKS } from "@/data/socialsLinks";
 
 const App = () => (
-	<MantineProvider theme={theme}>
-		<AuthProvider>
-			<InnerApp />
-		</AuthProvider>
-	</MantineProvider>
+	<AuthProvider>
+		<Header />
+		<main>
+			<Outlet />
+		</main>
+		<Footer links={SOCIALS_LINKS} />
+	</AuthProvider>
 );
 
 export default App;

@@ -1,6 +1,6 @@
 import { Divider, Text } from "@mantine/core";
-import styles from "@/styles/Post.module.css";
 import type { Post } from "@/types/post";
+import styles from "./Post.module.css";
 
 interface Props {
 	lede: Post["lede"];

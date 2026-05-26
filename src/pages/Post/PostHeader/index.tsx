@@ -1,36 +1,9 @@
-import { Anchor, Group, Stack, Text, Title } from "@mantine/core";
+import { Group, Stack, Text, Title } from "@mantine/core";
 import { IconBook } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import type { Post } from "@/types/post";
-import type { User } from "@/types/user";
-
-const Author = ({ postAuthor }: { postAuthor: User }) => {
-	let author = "";
-	if (!postAuthor.firstName && !postAuthor.lastName)
-		author = postAuthor.username;
-	else {
-		if (postAuthor.firstName) author += postAuthor.firstName;
-		if (postAuthor.lastName) author += ` ${postAuthor.lastName}`;
-	}
-	author = author.trim();
-
-	return postAuthor.website ? (
-		<Anchor
-			href={postAuthor.website}
-			underline="not-hover"
-			fw="600"
-			target="_blank"
-			rel="noreferrer"
-			aria-label="author"
-		>
-			{author}
-		</Anchor>
-	) : (
-		<Text fw="600" c="black" aria-label="author">
-			{author}
-		</Text>
-	);
-};
+import styles from "../Post.module.css";
+import PostAuthor from "./PostAuthor";
 
 interface PostHeaderProps {
 	postDetails: Pick<
@@ -61,14 +34,14 @@ const PostHeader = ({ postDetails }: PostHeaderProps) => {
 				<IconBook size={16} strokeWidth={1} />
 				<span>{timeToReadRounded} min read</span>
 			</Group>
-			<Title order={2} size="h1" fw={500}>
+			<Title order={2} size="h1" fw={400} className={styles.heading}>
 				{postDetails.title}
 			</Title>
 
 			<Stack mt="md" gap="xs">
 				<Group gap={4}>
 					<Text c="dark.4">{dates.published} by </Text>
-					<Author postAuthor={postDetails.author} />
+					<PostAuthor postAuthor={postDetails.author} />
 				</Group>
 				<Group>
 					{isUpdatedPost && (

@@ -1,7 +1,7 @@
 import { Card, Skeleton, Stack } from "@mantine/core";
 import styles from "./PreviewCard.module.css";
 
-const PreviewCardLoading = () => (
+const LoadingPreviewCard = () => (
 	<Card shadow="xs" withBorder className={styles.card}>
 		<Stack component="header" gap="lg">
 			<Skeleton height={40} width="100%" radius="xl" />
@@ -13,4 +13,4 @@ const PreviewCardLoading = () => (
 	</Card>
 );
 
-export default PreviewCardLoading;
+export default LoadingPreviewCard;
