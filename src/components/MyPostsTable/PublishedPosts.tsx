@@ -32,7 +32,7 @@ const PublishedPostsTable = ({ posts, fetchData }: Props) => {
 						<span>{p.comments.length}</span>
 					</Group>
 				</Table.Td>
-				<Table.Td>
+				<Table.Td align="right">
 					<Menu post={p} fetchData={fetchData} />
 				</Table.Td>
 			</Table.Tr>
