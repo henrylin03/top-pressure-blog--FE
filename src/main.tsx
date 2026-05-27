@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router";
 import { router } from "./router";
 import "@/styles/global.css";
 import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
 import { theme } from "@/styles/theme";
 
 const rootElement = document.getElementById("root");

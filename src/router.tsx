@@ -3,7 +3,7 @@ import App from "@/App";
 import PostsTable from "@/components/MyPostsTable";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MyPostsPage from "@/pages/author/MyPosts";
-import NewPostPage from "@/pages/author/NewPost";
+import NewPostPage from "@/pages/author/NewPostPage/NewPostPage";
 import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
 import PostPage from "@/pages/Post";
