@@ -1,5 +1,5 @@
-import { ActionIcon, Menu as MantineMenu, Text } from "@mantine/core";
-import { modals } from "@mantine/modals";
+import { openDeleteModal } from "@components/modals/DeleteModal";
+import { ActionIcon, Menu as MantineMenu } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import type { AuthoredPostPreview } from "@/types/post";
@@ -38,20 +38,6 @@ const Menu = ({ post, fetchData }: Props) => {
 		console.error("Error when trying to publish post:", json.error); // TODO: need better error handling tbh
 	};
 
-	const openDeleteModal = () => {
-		modals.openConfirmModal({
-			title: "Delete post",
-			children: (
-				<Text size="sm">
-					Are you sure you want to delete this post? This action cannot be
-					undone.
-				</Text>
-			),
-			labels: { confirm: "Yes, delete", cancel: "Cancel" },
-			confirmProps: { color: "red" },
-		});
-	};
-
 	return (
 		<MantineMenu shadow="xl" width={144} position="bottom-end">
 			<MantineMenu.Target>
@@ -87,7 +73,10 @@ const Menu = ({ post, fetchData }: Props) => {
 				<MantineMenu.Divider />
 				{/* <MantineMenu.Item>Manage comments</MantineMenu.Item> */}
 				{/* <MantineMenu.Divider /> */}
-				<MantineMenu.Item c="pink" onClick={openDeleteModal}>
+				<MantineMenu.Item
+					c="pink"
+					onClick={() => openDeleteModal({ jwt, postId: post.id, fetchData })}
+				>
 					Delete post
 				</MantineMenu.Item>
 			</MantineMenu.Dropdown>
