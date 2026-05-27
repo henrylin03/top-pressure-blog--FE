@@ -16,7 +16,11 @@ const DraftPostsTable = ({ posts, fetchData }: Props) => {
 
 		return (
 			<Table.Tr key={p.id} fz="md">
-				<Table.Td>{p.title}</Table.Td>
+				{p.title ? (
+					<Table.Td>{p.title}</Table.Td>
+				) : (
+					<Table.Td c="dimmed">Untitled</Table.Td>
+				)}
 				<Table.Td visibleFrom="xs">{lastModifiedDate}</Table.Td>
 				<Table.Td visibleFrom="sm">
 					<Group gap="xs" align="center">
