@@ -1,3 +1,4 @@
+import { openDeleteModal } from "@components/modals/DeleteModal";
 import { ActionIcon, Menu as MantineMenu } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
@@ -72,7 +73,12 @@ const Menu = ({ post, fetchData }: Props) => {
 				<MantineMenu.Divider />
 				{/* <MantineMenu.Item>Manage comments</MantineMenu.Item> */}
 				{/* <MantineMenu.Divider /> */}
-				<MantineMenu.Item c="pink">Delete post</MantineMenu.Item>
+				<MantineMenu.Item
+					c="pink"
+					onClick={() => openDeleteModal({ jwt, postId: post.id, fetchData })}
+				>
+					Delete post
+				</MantineMenu.Item>
 			</MantineMenu.Dropdown>
 		</MantineMenu>
 	);
