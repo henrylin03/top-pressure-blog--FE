@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import PostsTable from "@/components/MyPostsTable";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import EditPostPage from "@/pages/author/EditPostPage";
 import MyPostsPage from "@/pages/author/MyPosts";
 import ErrorPage from "@/pages/Error";
 import LoginPage from "@/pages/Login";
@@ -37,6 +38,14 @@ const routes = [
 				element: <PostsTable />,
 			},
 		],
+	},
+	{
+		path: "/my-posts/:postId/edit",
+		element: (
+			<ProtectedRoute isAuthorOnly>
+				<EditPostPage />
+			</ProtectedRoute>
+		),
 	},
 ];
 
