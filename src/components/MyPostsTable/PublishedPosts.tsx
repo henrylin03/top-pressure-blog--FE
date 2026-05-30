@@ -3,6 +3,7 @@ import { IconMessage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import type { AuthoredPostPreview } from "@/types/post";
 import Menu from "./Menu";
+import styles from "./tables.module.css";
 
 interface Props {
 	posts: AuthoredPostPreview[];
@@ -19,16 +20,20 @@ const PublishedPostsTable = ({ posts, fetchData }: Props) => {
 
 		return (
 			<Table.Tr key={p.id} fz="md">
-				<Table.Td>{p.title}</Table.Td>
+				{p.title ? (
+					<Table.Td>{p.title}</Table.Td>
+				) : (
+					<Table.Td c="dimmed">Untitled</Table.Td>
+				)}
 				<Table.Td visibleFrom="xs">{publishedDate}</Table.Td>
 				<Table.Td visibleFrom="sm">{lastModifiedDate}</Table.Td>
-				<Table.Td visibleFrom="md">
+				<Table.Td visibleFrom="sm" className={styles.commentsCell}>
 					<Group gap="xs" align="center">
 						<IconMessage size={18} opacity={0.6} />
 						<span>{p.comments.length}</span>
 					</Group>
 				</Table.Td>
-				<Table.Td>
+				<Table.Td align="right">
 					<Menu post={p} fetchData={fetchData} />
 				</Table.Td>
 			</Table.Tr>
@@ -39,7 +44,9 @@ const PublishedPostsTable = ({ posts, fetchData }: Props) => {
 		<Table withRowBorders={false}>
 			<Table.Thead>
 				<Table.Tr c="gray.6">
-					<Table.Th fw="normal">Title</Table.Th>
+					<Table.Th fw="normal" className={styles.titleCell}>
+						Title
+					</Table.Th>
 					<Table.Th fw="normal" visibleFrom="xs">
 						Published
 					</Table.Th>
