@@ -53,12 +53,14 @@ const Menu = ({ post, fetchData }: Props) => {
 			</MantineMenu.Target>
 
 			<MantineMenu.Dropdown>
-				{/* {post.isPublished && (
-          <>
-            <MantineMenu.Item>View live</MantineMenu.Item>
-            <MantineMenu.Divider />
-          </>
-        )} */}
+				{post.isPublished && (
+					<>
+						<MantineMenu.Item component={Link} to={`/posts/${post.id}`}>
+							View live
+						</MantineMenu.Item>
+						<MantineMenu.Divider />
+					</>
+				)}
 				<MantineMenu.Item component={Link} to={`/my-posts/${post.id}/edit`}>
 					Edit post
 				</MantineMenu.Item>
