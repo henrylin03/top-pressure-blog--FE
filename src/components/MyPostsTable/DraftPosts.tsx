@@ -3,6 +3,7 @@ import { IconMessage } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import type { AuthoredPostPreview } from "@/types/post";
 import Menu from "./Menu";
+import styles from "./tables.module.css";
 
 interface Props {
 	posts: AuthoredPostPreview[];
@@ -22,7 +23,7 @@ const DraftPostsTable = ({ posts, fetchData }: Props) => {
 					<Table.Td c="dimmed">Untitled</Table.Td>
 				)}
 				<Table.Td visibleFrom="xs">{lastModifiedDate}</Table.Td>
-				<Table.Td visibleFrom="sm">
+				<Table.Td visibleFrom="sm" className={styles.commentsCell}>
 					<Group gap="xs" align="center">
 						<IconMessage size={18} opacity={0.6} />
 						<span>{p.comments.length}</span>
@@ -39,7 +40,9 @@ const DraftPostsTable = ({ posts, fetchData }: Props) => {
 		<Table withRowBorders={false}>
 			<Table.Thead>
 				<Table.Tr c="gray.6">
-					<Table.Th fw="normal">Title</Table.Th>
+					<Table.Th fw="normal" className={styles.titleCell}>
+						Title
+					</Table.Th>
 					<Table.Th fw="normal" visibleFrom="xs">
 						Last modified
 					</Table.Th>
