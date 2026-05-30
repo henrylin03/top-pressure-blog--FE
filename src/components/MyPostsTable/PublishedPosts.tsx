@@ -19,7 +19,11 @@ const PublishedPostsTable = ({ posts, fetchData }: Props) => {
 
 		return (
 			<Table.Tr key={p.id} fz="md">
-				<Table.Td>{p.title}</Table.Td>
+				{p.title ? (
+					<Table.Td>{p.title}</Table.Td>
+				) : (
+					<Table.Td c="dimmed">Untitled</Table.Td>
+				)}
 				<Table.Td visibleFrom="xs">{publishedDate}</Table.Td>
 				<Table.Td visibleFrom="sm">{lastModifiedDate}</Table.Td>
 				<Table.Td visibleFrom="md">
@@ -28,7 +32,7 @@ const PublishedPostsTable = ({ posts, fetchData }: Props) => {
 						<span>{p.comments.length}</span>
 					</Group>
 				</Table.Td>
-				<Table.Td>
+				<Table.Td align="right">
 					<Menu post={p} fetchData={fetchData} />
 				</Table.Td>
 			</Table.Tr>
