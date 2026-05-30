@@ -1,6 +1,7 @@
 import { openDeleteModal } from "@components/modals/DeleteModal";
 import { ActionIcon, Menu as MantineMenu } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
+import { Link } from "react-router";
 import { JWT_LOCALSTORAGE_KEY } from "@/contexts/auth";
 import type { AuthoredPostPreview } from "@/types/post";
 
@@ -58,7 +59,9 @@ const Menu = ({ post, fetchData }: Props) => {
             <MantineMenu.Divider />
           </>
         )} */}
-				{/* <MantineMenu.Item>Edit post</MantineMenu.Item> */}
+				<MantineMenu.Item component={Link} to={`/my-posts/${post.id}/edit`}>
+					Edit post
+				</MantineMenu.Item>
 
 				{post.isPublished ? (
 					<MantineMenu.Item onClick={() => unpublishPost(post.id)}>
